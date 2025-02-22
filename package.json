@@ -1,0 +1,50 @@
+{
+  "name": "construct3-plugin-template",
+  "version": "1.0.0",
+  "description": "An opinionated ready-to-use Construct 3 Plugin template based on TypeScript & Vite.js. 🎮",
+  "keywords": [
+    "Construct3",
+    "JavaScript",
+    "TypeScript",
+    "Vite.js",
+    "ESLint",
+    "Husky",
+    "Plugin",
+    "Template"
+  ],
+  "homepage": "https://github.com/Dinobros/construct3-plugin-template#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dinobros/construct3-plugin-template.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Dinobros/construct3-plugin-template/issues"
+  },
+  "author": {
+    "name": "Matteo Bilotta",
+    "email": "matteo@dinobros.com",
+    "url": "https://www.dinobros.com/"
+  },
+  "license": "Apache-2.0",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently --kill-others --prefix \"[{name}]\" --prefix-colors \"magenta,cyan\" --names \"BUILD,SERVER\" \"pnpm run build --watch\" \"pnpm run preview\"",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc",
+    "lint": "eslint .",
+    "prepare": "husky",
+    "ci": "pnpm install --frozen-lockfile"
+  },
+  "devDependencies": {
+    "@byloth/eslint-config-typescript": "^3.0.3",
+    "@eslint/compat": "^1.2.5",
+    "@types/node": "^22.12.0",
+    "concurrently": "^8.2.2",
+    "husky": "^9.1.7",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.11"
+  },
+  "private": true,
+  "packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0"
+}

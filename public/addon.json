@@ -1,0 +1,31 @@
+﻿{
+  "$schema": "../schemas/plugin.addon.schema.json",
+
+  "is-c3-addon": true,
+  "sdk-version": 2,
+  "type": "plugin",
+  "name": "Construct 3 Plugin Template",
+  "id": "Dinobros_Construct3PluginTemplate",
+  "version": "1.0.0",
+  "author": "Dinobros Srl",
+  "website": "https://www.dinobros.com/",
+  "documentation": "https://github.com/Dinobros/construct3-plugin-template#readme",
+  "description": "An opinionated ready-to-use Construct 3 Plugin template based on TypeScript & Vite.js.",
+  "editor-scripts": ["index.js"],
+  "file-list": [
+    "c3runtime/plugin.js",
+    "c3runtime/type.js",
+    "c3runtime/instance.js",
+    "c3runtime/conditions.js",
+    "c3runtime/actions.js",
+    "c3runtime/expressions.js",
+    "c3runtime/internals.js",
+    "c3runtime/runtime.js",
+    "c3runtime/vendors.js",
+    "lang/en-US.json",
+    "aces.json",
+    "addon.json",
+    "icon.svg",
+    "index.js"
+  ]
+}
