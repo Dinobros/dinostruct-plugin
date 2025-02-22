@@ -7,10 +7,10 @@ export class MyCustomInstance extends SDK.IInstanceBase
         super(sdkType, iInstance);
     }
 
-    public Release(): void { /* ... */ }
-    public OnCreate(): void { /* ... */ }
+    public override Release(): void { /* ... */ }
+    public override OnCreate(): void { /* ... */ }
 
-    public OnPropertyChanged(id: string, value: EditorPropertyValueType): void { /* ... */ }
+    public override OnPropertyChanged(id: string, value: EditorPropertyValueType): void { /* ... */ }
 
-    public LoadC2Property(name: string, valueString: string): boolean { return false; }
+    public override LoadC2Property(name: string, valueString: string): boolean { return false; }
 }

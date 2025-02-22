@@ -9,7 +9,7 @@ export class SingleGlobalType extends globalThis.ISDKObjectTypeBase<SingleGlobal
         super();
     }
 
-    public _onCreate(): void { /* ... */ }
+    public override _onCreate(): void { /* ... */ }
 }
 
 C3.Plugins.Dinobros_Construct3PluginTemplate.Type = SingleGlobalType;

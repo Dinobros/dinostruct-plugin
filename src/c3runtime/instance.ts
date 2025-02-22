@@ -21,16 +21,16 @@ export class SingleGlobalInstance extends globalThis.ISDKInstanceBase
         }
     }
 
-    public _release(): void
+    public override _release(): void
     {
         super._release();
     }
-    public _saveToJson(): JSONValue
+    public override _saveToJson(): JSONValue
     {
         return { /* Data to be saved in savegames.. */ };
     }
 
-    public _loadFromJson(o: JSONValue): void
+    public override _loadFromJson(o: JSONValue): void
     {
         // Load state from savegames...
     }
