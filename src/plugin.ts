@@ -12,7 +12,7 @@ const SDK = globalThis.SDK;
  *  and create an entirely new plugin with a different plugin ID.
 */
 
-export class MyCustomPlugin extends SDK.IPluginBase
+export default class DinostructSDK extends SDK.IPluginBase
 {
     public static readonly ID = "Dinobros_DinostructPlugin";
     public static readonly Author = "Dinobros Srl";
@@ -21,15 +21,15 @@ export class MyCustomPlugin extends SDK.IPluginBase
 
     public constructor()
     {
-        super(MyCustomPlugin.ID);
+        super(DinostructSDK.ID);
 
-        SDK.Lang.PushContext(`plugins.${MyCustomPlugin.ID.toLowerCase()}`);
+        SDK.Lang.PushContext(`plugins.${DinostructSDK.ID.toLowerCase()}`);
 
         this._info.SetName(globalThis.lang(".name"));
         this._info.SetDescription(globalThis.lang(".description"));
-        this._info.SetCategory(MyCustomPlugin.Category);
-        this._info.SetAuthor(MyCustomPlugin.Author);
-        this._info.SetVersion(MyCustomPlugin.Version);
+        this._info.SetCategory(DinostructSDK.Category);
+        this._info.SetAuthor(DinostructSDK.Author);
+        this._info.SetVersion(DinostructSDK.Version);
         this._info.SetHelpUrl(globalThis.lang(".help-url"));
         this._info.SetIsSingleGlobal(true);
         this._info.SetCanBeBundled(false);

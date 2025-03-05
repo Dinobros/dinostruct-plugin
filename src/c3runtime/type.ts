@@ -1,8 +1,8 @@
-import type { SingleGlobalInstance } from "./instance";
+import type DinostructC3Instance from "./instance";
 
 const C3 = globalThis.C3;
 
-export class SingleGlobalType extends globalThis.ISDKObjectTypeBase<SingleGlobalInstance>
+export default class DinostructC3Type extends globalThis.ISDKObjectTypeBase<DinostructC3Instance>
 {
     public constructor()
     {
@@ -12,4 +12,4 @@ export class SingleGlobalType extends globalThis.ISDKObjectTypeBase<SingleGlobal
     public override _onCreate(): void { /* ... */ }
 }
 
-C3.Plugins.Dinobros_DinostructPlugin.Type = SingleGlobalType;
+C3.Plugins.Dinobros_DinostructPlugin.Type = DinostructC3Type;

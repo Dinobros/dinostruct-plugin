@@ -1,6 +1,6 @@
 const SDK = globalThis.SDK;
 
-export class MyCustomInstance extends SDK.IInstanceBase
+export default class DinostructSDKInstance extends SDK.IInstanceBase
 {
     public constructor(sdkType: SDK.ITypeBase, iInstance: SDK.IObjectInstance)
     {

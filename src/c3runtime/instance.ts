@@ -1,6 +1,6 @@
 const C3 = globalThis.C3;
 
-export class SingleGlobalInstance extends globalThis.ISDKInstanceBase
+export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
 {
     protected _onDomMessage = (message: unknown): void =>
     {
@@ -52,4 +52,4 @@ export class SingleGlobalInstance extends globalThis.ISDKInstanceBase
     }
 }
 
-C3.Plugins.Dinobros_DinostructPlugin.Instance = SingleGlobalInstance;
+C3.Plugins.Dinobros_DinostructPlugin.Instance = DinostructC3Instance;

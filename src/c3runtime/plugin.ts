@@ -1,6 +1,6 @@
 const C3 = globalThis.C3;
 
-export class SingleGlobalPlugin extends globalThis.ISDKPluginBase
+export default class DinostructC3Plugin extends globalThis.ISDKPluginBase
 {
     public constructor()
     {
@@ -9,4 +9,4 @@ export class SingleGlobalPlugin extends globalThis.ISDKPluginBase
 }
 
 // eslint-disable-next-line camelcase
-C3.Plugins.Dinobros_DinostructPlugin = SingleGlobalPlugin;
+C3.Plugins.Dinobros_DinostructPlugin = DinostructC3Plugin;

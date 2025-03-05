@@ -1,12 +1,12 @@
-import type { SingleGlobalInstance } from "./instance";
+import type DinostructC3Instance from "./instance";
 
 const C3 = globalThis.C3;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type Action<T extends unknown[] = any[]> = (this: SingleGlobalInstance, ...args: T) => void;
+export type Action<T extends unknown[] = any[]> = (this: DinostructC3Instance, ...args: T) => void;
 
-export const SingleGlobalActions = {
-    LogToConsole(this: SingleGlobalInstance): void
+const DinostructC3Actions = {
+    LogToConsole(this: DinostructC3Instance): void
     {
         // eslint-disable-next-line no-console
         console.log("This is the 'Log to console' action. Test property = " + this.testProperty);
@@ -14,4 +14,6 @@ export const SingleGlobalActions = {
 
 } satisfies Record<string, Action>;
 
-C3.Plugins.Dinobros_DinostructPlugin.Acts = SingleGlobalActions;
+C3.Plugins.Dinobros_DinostructPlugin.Acts = DinostructC3Actions;
+
+export default DinostructC3Actions;

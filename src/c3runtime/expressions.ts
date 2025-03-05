@@ -1,16 +1,19 @@
-import type { SingleGlobalInstance } from "./instance";
+import type DinostructC3Instance from "./instance";
 
 const C3 = globalThis.C3;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type Expression<T extends unknown[] = any[], R = any> = (this: SingleGlobalInstance, ...args: T) => R;
+export type Expression<T extends unknown[] = any[], R extends number | string = number | string>
+    = (this: DinostructC3Instance, ...args: T) => R;
 
-export const SingleGlobalExpressions = {
-    Double(this: SingleGlobalInstance, num: number): number
+const DinostructC3Expressions = {
+    Double(this: DinostructC3Instance, num: number): number
     {
         return num * 2;
     }
 
 } satisfies Record<string, Expression>;
 
-C3.Plugins.Dinobros_DinostructPlugin.Exps = SingleGlobalExpressions;
+C3.Plugins.Dinobros_DinostructPlugin.Exps = DinostructC3Expressions;
+
+export default DinostructC3Expressions;
