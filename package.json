@@ -1,5 +1,5 @@
 {
-  "name": "construct3-plugin-template",
+  "name": "@dinobros/dinostruct-plugin",
   "version": "1.0.0",
   "description": "An opinionated ready-to-use Construct 3 Plugin template based on TypeScript & Vite.js. 🎮",
   "keywords": [
@@ -12,13 +12,13 @@
     "Plugin",
     "Template"
   ],
-  "homepage": "https://github.com/Dinobros/construct3-plugin-template#readme",
+  "homepage": "https://github.com/Dinobros/dinostruct-plugin#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Dinobros/construct3-plugin-template.git"
+    "url": "git+https://github.com/Dinobros/dinostruct-plugin.git"
   },
   "bugs": {
-    "url": "https://github.com/Dinobros/construct3-plugin-template/issues"
+    "url": "https://github.com/Dinobros/dinostruct-plugin/issues"
   },
   "author": {
     "name": "Matteo Bilotta",
@@ -28,8 +28,8 @@
   "license": "Apache-2.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently --kill-others --prefix \"[{name}]\" --prefix-colors \"magenta,cyan\" --names \"BUILD,SERVER\" \"pnpm run build --watch\" \"pnpm run preview\"",
-    "build": "vite build",
+    "dev": "concurrently -P --kill-others --prefix \"[{name}]\" --prefix-colors \"magenta,cyan\" --names \"BUILD,SERVER\" \"vite build --watch\" \"vite preview --port 5173 {@}\" --",
+    "build": "vite build --sourcemap false && mkdir -p dist/ && cd .build/ && zip -r ../dist/Dinobros_DinostructPlugin-v$(jq -r .version ../package.json).c3addon *",
     "preview": "vite preview",
     "typecheck": "tsc",
     "lint": "eslint .",

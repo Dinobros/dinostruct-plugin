@@ -5,10 +5,10 @@
   "fileDescription": "Strings for Dinobros's Construct 3 Plugin Template.",
   "text": {
     "plugins": {
-      "dinobros_construct3plugintemplate": {
+      "dinobros_dinostructplugin": {
         "name": "Construct 3 Plugin Template",
         "description": "An opinionated ready-to-use Construct 3 Plugin template based on TypeScript & Vite.js.",
-        "help-url": "https://github.com/Dinobros/construct3-plugin-template#readme",
+        "help-url": "https://github.com/Dinobros/dinostruct-plugin#readme",
         "properties": {
           "test-property": {
             "name": "Test property",

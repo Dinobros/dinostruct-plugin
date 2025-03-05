@@ -13,4 +13,4 @@ export const SingleGlobalConditions = {
 
 } satisfies Record<string, Condition>;
 
-C3.Plugins.Dinobros_Construct3PluginTemplate.Cnds = SingleGlobalConditions;
+C3.Plugins.Dinobros_DinostructPlugin.Cnds = SingleGlobalConditions;

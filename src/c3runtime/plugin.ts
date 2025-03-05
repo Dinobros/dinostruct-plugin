@@ -9,4 +9,4 @@ export class SingleGlobalPlugin extends globalThis.ISDKPluginBase
 }
 
 // eslint-disable-next-line camelcase
-C3.Plugins.Dinobros_Construct3PluginTemplate = SingleGlobalPlugin;
+C3.Plugins.Dinobros_DinostructPlugin = SingleGlobalPlugin;

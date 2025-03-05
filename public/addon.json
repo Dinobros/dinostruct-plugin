@@ -5,11 +5,11 @@
   "sdk-version": 2,
   "type": "plugin",
   "name": "Construct 3 Plugin Template",
-  "id": "Dinobros_Construct3PluginTemplate",
+  "id": "Dinobros_DinostructPlugin",
   "version": "1.0.0",
   "author": "Dinobros Srl",
   "website": "https://www.dinobros.com/",
-  "documentation": "https://github.com/Dinobros/construct3-plugin-template#readme",
+  "documentation": "https://github.com/Dinobros/dinostruct-plugin#readme",
   "description": "An opinionated ready-to-use Construct 3 Plugin template based on TypeScript & Vite.js.",
   "editor-scripts": ["index.js"],
   "file-list": [

@@ -14,4 +14,4 @@ export const SingleGlobalActions = {
 
 } satisfies Record<string, Action>;
 
-C3.Plugins.Dinobros_Construct3PluginTemplate.Acts = SingleGlobalActions;
+C3.Plugins.Dinobros_DinostructPlugin.Acts = SingleGlobalActions;

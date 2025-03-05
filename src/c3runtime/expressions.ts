@@ -13,4 +13,4 @@ export const SingleGlobalExpressions = {
 
 } satisfies Record<string, Expression>;
 
-C3.Plugins.Dinobros_Construct3PluginTemplate.Exps = SingleGlobalExpressions;
+C3.Plugins.Dinobros_DinostructPlugin.Exps = SingleGlobalExpressions;

@@ -52,4 +52,4 @@ export class SingleGlobalInstance extends globalThis.ISDKInstanceBase
     }
 }
 
-C3.Plugins.Dinobros_Construct3PluginTemplate.Instance = SingleGlobalInstance;
+C3.Plugins.Dinobros_DinostructPlugin.Instance = SingleGlobalInstance;

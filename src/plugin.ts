@@ -34,9 +34,9 @@ export class MyCustomPlugin extends SDK.IPluginBase
         this._info.SetIsSingleGlobal(true);
         this._info.SetCanBeBundled(false);
 
-        this._info.AddC3RuntimeScript("c3runtime/internals.js");
-        this._info.AddC3RuntimeScript("c3runtime/runtime.js");
-        this._info.AddC3RuntimeScript("c3runtime/vendors.js");
+        // this._info.AddC3RuntimeScript("c3runtime/runtime.js");
+        // this._info.AddC3RuntimeScript("c3runtime/internals.js");
+        // this._info.AddC3RuntimeScript("c3runtime/vendors.js");
 
         this._info.SetDOMSideScripts(["c3runtime/dom.js"]);
 
