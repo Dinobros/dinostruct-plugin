@@ -21,7 +21,8 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "rootDir": ".",
-    "outDir": "./dist"
+    "outDir": "./.build",
+    "paths": { "@/*": ["./src/*"] }
   },
   "include": [
     "./src",

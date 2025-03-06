@@ -10,13 +10,86 @@
         "description": "The official Construct 3 Plugin by Dinobros used widely in all our projects. 🦖",
         "help-url": "https://github.com/Dinobros/dinostruct-plugin#readme",
         "properties": {
-          "test-property": {
-            "name": "Test property",
-            "desc": "A test number property. Displayed by 'Alert' action."
+          "auto-initialize": {
+            "name": "Auto Initialize",
+            "desc": "If enabled, the plugin will automatically initialize itself when the runtime starts."
+          },
+          "timeout": {
+            "name": "Timeout (ms)",
+            "desc": "The timeout in milliseconds to be used for network requests."
+          },
+          "log_events": {
+            "name": "Log Events",
+            "desc": "Log Events configurations."
+          },
+          "enable-log_events": {
+            "name": "Enable Log Events",
+            "desc": "If enabled, the plugin will log events to the database."
+          },
+          "use-custom-log_events-endpoint": {
+            "name": "Use Custom Endpoint",
+            "desc": "If enabled, the plugin will use a custom endpoint to log events rather than Firebase."
+          },
+          "custom-log_events-endpoint": {
+            "name": "Custom Endpoint URL",
+            "desc": "The URL of the custom endpoint to use for logging events."
+          },
+          "firebase-sdk": {
+            "name": "Firebase SDK",
+            "desc": "Firebase SDK configurations."
+          },
+          "firebase-api_key": {
+            "name": "API Key",
+            "desc": "The API key to be used for the Firebase SDK."
+          },
+          "firebase-auth_domain": {
+            "name": "Auth Domain",
+            "desc": "The Auth Domain to be used for the Firebase SDK."
+          },
+          "firebase-database_url": {
+            "name": "Database URL",
+            "desc": "The Database URL to be used for the Firebase SDK."
+          },
+          "firebase-project_id": {
+            "name": "Project ID",
+            "desc": "The Project ID to be used for the Firebase SDK."
+          },
+          "firebase-storage_bucket": {
+            "name": "Storage Bucket",
+            "desc": "The Storage Bucket to be used for the Firebase SDK."
+          },
+          "firebase-messaging_sender_id": {
+            "name": "Messaging Sender ID",
+            "desc": "The Messaging Sender ID to be used for the Firebase SDK."
+          },
+          "firebase-app_id": {
+            "name": "App ID",
+            "desc": "The App ID to be used for the Firebase SDK."
+          },
+          "firebase-measurement_id": {
+            "name": "Measurement ID",
+            "desc": "The Measurement ID to be used for the Firebase SDK."
+          },
+          "firebase-default_region": {
+            "name": "Default Region",
+            "desc": "The default region to be used for the Firebase SDK."
+          },
+          "firebase-app_check": {
+            "name": "App Check",
+            "desc": "App Check configurations."
+          },
+          "enable-app_check": {
+            "name": "Enable App Check",
+            "desc": "If enabled, the plugin will use App Check to protect the Firebase services."
+          },
+          "recaptcha-site_key": {
+            "name": "ReCAPTCHA Site Key",
+            "desc": "The ReCAPTCHA Site Key to be used for App Check."
           }
         },
         "aceCategories": {
-          "custom": "Custom"
+          "custom": "Custom",
+          "log-events": "Log Events"
         },
         "conditions": {
           "is-large-number": {
@@ -32,10 +105,35 @@
           }
         },
         "actions": {
-          "log-to-console": {
-            "list-name": "Log to console",
-            "display-text": "Log to console",
-            "description": "Log a test message to the console."
+          "log-event": {
+            "list-name": "Log event",
+            "display-text": "Log a [i]{0}[/i] event",
+            "description": "Log a event to the database.",
+            "params": {
+              "type": {
+                "name": "Type",
+                "desc": "The type of event to log."
+              }
+            }
+          },
+          "log-event-payload": {
+            "list-name": "Log event with payload",
+            "display-text": "Log a [i]{0}[/i] event with [i]{1}[/i] payload to be empty: [i]{2}[/i]",
+            "description": "Log a event to the database.",
+            "params": {
+              "type": {
+                "name": "Type",
+                "desc": "The type of event to log."
+              },
+              "payload": {
+                "name": "Payload",
+                "desc": "The payload JSON object to store with the event."
+              },
+              "empty": {
+                "name": "Empty",
+                "desc": "If true, the payload JSON object will be empty after logging."
+              }
+            }
           }
         },
         "expressions": {

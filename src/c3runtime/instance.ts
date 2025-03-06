@@ -1,26 +1,38 @@
+import { v4 as uuid4 } from "uuid";
+
+import Configs from "@/models/configs";
+import { DinostructException, DinostructExceptionCode } from "@/exceptions";
+
 const C3 = globalThis.C3;
 
 export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
 {
+    protected _initialized: boolean;
+
+    protected _deviceId: string;
+    protected _sessionId: string;
+
+    protected _isReturningUser: boolean;
+
     protected _onDomMessage = (message: unknown): void =>
     {
         console.log("Received DOM message: ", message);
     };
 
+    public readonly configs: Configs;
+
     public constructor()
     {
         super({ domComponentId: "dinobros-dinostruct_plugin-dom_handler" });
 
-        /*
-        // Initialize object properties...
-        this._testProperty = 0;
+        this._initialized = false;
 
-        const properties = this._getInitProperties();
-        if (properties) // Note: properties may be null in some cases!
-        {
-            this._testProperty = properties[0] as number;
-        }
-        */
+        this._deviceId = "";
+        this._sessionId = "";
+
+        this._isReturningUser = false;
+
+        this.configs = new Configs(this._getInitProperties());
 
         this._addDOMMessageHandler("dinobros:dinostruct:runtime", this._onDomMessage);
 
@@ -37,18 +49,27 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
         }, 5_000);
     }
 
-    public override _release(): void
+    public async initialize(): Promise<void>
     {
-        super._release();
-    }
-    public override _saveToJson(): JSONValue
-    {
-        return { /* Data to be saved in savegames.. */ };
-    }
+        if (this._initialized)
+        {
+            throw new DinostructException(DinostructExceptionCode.AlreadyInitialized);
+        }
 
-    public override _loadFromJson(o: JSONValue): void
-    {
-        // Load state from savegames...
+        let deviceId = await this.runtime.storage.getItem("dinostruct:internal:deviceId") as string;
+        if (deviceId)
+        {
+            this._isReturningUser = true;
+        }
+        else
+        {
+            deviceId = uuid4();
+
+            await this.runtime.storage.setItem("dinostruct:internal:deviceId", deviceId);
+        }
+
+        this._deviceId = deviceId;
+        this._sessionId = uuid4();
     }
 }
 
