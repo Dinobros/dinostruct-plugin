@@ -1,4 +1,4 @@
-export default class DomHandler extends IDOMHandler
+class DomHandler extends DOMHandler
 {
     protected _onRuntimeSyncMessage = (message: unknown): JSONValue =>
     {

@@ -1,16 +1,16 @@
 {
   "name": "@dinobros/dinostruct-plugin",
   "version": "0.1.0",
-  "description": "An opinionated ready-to-use Construct 3 Plugin template based on TypeScript & Vite.js. 🎮",
+  "description": "The official Construct 3 Plugin by Dinobros used widely in all our projects. 🦖",
   "keywords": [
+    "Dinobros",
     "Construct3",
+    "Plugin",
     "JavaScript",
     "TypeScript",
     "Vite.js",
     "ESLint",
-    "Husky",
-    "Plugin",
-    "Template"
+    "Husky"
   ],
   "homepage": "https://github.com/Dinobros/dinostruct-plugin#readme",
   "repository": {
@@ -28,7 +28,7 @@
   "license": "Apache-2.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently -P --kill-others --prefix \"[{name}]\" --prefix-colors \"magenta,cyan\" --names \"BUILD,SERVER\" \"vite build --watch\" \"vite preview --port 5173 {@}\" --",
+    "dev": "concurrently -P --kill-others --prefix \"[{name}]\" --prefix-colors \"magenta,cyan\" --names \"BUILD,SERVER\" \"vite build --watch\" \"vite preview --outDir .build --port 5173 {@}\" --",
     "build": "vite build --sourcemap false && mkdir -p dist/ && cd .build/ && zip -r ../dist/Dinobros_DinostructPlugin-v$(jq -r .version ../package.json).c3addon *",
     "preview": "vite preview",
     "typecheck": "tsc",

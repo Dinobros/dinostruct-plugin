@@ -1,3 +1,3 @@
-# Construct 3 Plugin Template 🎮
+# Dinostruct Plugin 🦖
 
-An opinionated ready-to-use Construct 3 Plugin template based on TypeScript & Vite.js.
+The official Construct 3 Plugin by Dinobros used widely in all our projects.

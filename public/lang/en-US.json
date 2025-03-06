@@ -2,12 +2,12 @@
   "$schema": "../../schemas/plugin.lang.schema.json",
 
   "languageTag": "en-US",
-  "fileDescription": "Strings for Dinobros's Construct 3 Plugin Template.",
+  "fileDescription": "Strings for Dinobros' Dinostruct Plugin.",
   "text": {
     "plugins": {
       "dinobros_dinostructplugin": {
-        "name": "Construct 3 Plugin Template",
-        "description": "An opinionated ready-to-use Construct 3 Plugin template based on TypeScript & Vite.js.",
+        "name": "Dinostruct",
+        "description": "The official Construct 3 Plugin by Dinobros used widely in all our projects. 🦖",
         "help-url": "https://github.com/Dinobros/dinostruct-plugin#readme",
         "properties": {
           "test-property": {
