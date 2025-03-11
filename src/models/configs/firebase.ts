@@ -1,3 +1,6 @@
+import { DinostructException, DinostructExceptionCode } from "@/exceptions";
+import type { FirebaseOptions } from "firebase/app";
+
 export default class FirebaseConfigs
 {
     public apiKey: string;
@@ -27,5 +30,24 @@ export default class FirebaseConfigs
 
         this.enableAppCheck = properties[14] as boolean;
         this.recaptchaSiteKey = properties[15] as string;
+    }
+
+    public getOptions(): FirebaseOptions
+    {
+        if (!(this.apiKey) || !(this.projectId) || !(this.appId))
+        {
+            throw new DinostructException(DinostructExceptionCode.MissingConfiguration);
+        }
+
+        return {
+            apiKey: this.apiKey,
+            authDomain: this.authDomain,
+            databaseURL: this.databaseUrl,
+            projectId: this.projectId,
+            storageBucket: this.storageBucket,
+            messagingSenderId: this.messagingSenderId,
+            appId: this.appId,
+            measurementId: this.measurementId
+        };
     }
 }

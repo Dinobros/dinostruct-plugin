@@ -1,26 +1,46 @@
 ﻿{
   "$schema": "../schemas/aces.schema.json",
 
-  "custom": {
-    "conditions": [{
-      "id": "is-large-number",
-      "scriptName": "IsLargeNumber",
-      "highlight": true,
-      "params": [{
-        "id": "number",
-        "type": "number"
-      }]
-    }],
-    "expressions": [{
-      "id": "double",
-      "expressionName": "Double",
-      "highlight": true,
-      "returnType": "number",
-      "params": [{
-        "id": "number",
-        "type": "number"
-      }]
-    }]
+  "error-handling": {
+    "conditions": [
+      {
+        "id": "error-any-trigger",
+        "scriptName": "TriggerOnError",
+        "highlight": true,
+        "isTrigger": true
+      },
+      {
+        "id": "error-specific-trigger",
+        "scriptName": "TriggerOnError",
+        "params": [{
+          "id": "code",
+          "type": "string"
+        }],
+        "isTrigger": true
+      }
+    ],
+    "expressions": [
+      {
+        "id": "error_type-unknown",
+        "expressionName": "XError_Unknown",
+        "returnType": "string"
+      },
+      {
+        "id": "error_type-not_initialized",
+        "expressionName": "XError_NotInitialized",
+        "returnType": "string"
+      },
+      {
+        "id": "error_type-already_initialized",
+        "expressionName": "XError_AlreadyInitialized",
+        "returnType": "string"
+      },
+      {
+        "id": "error_type-missing_configuration",
+        "expressionName": "XError_MissingConfiguration",
+        "returnType": "string"
+      }
+    ]
   },
 
   "log-events": {

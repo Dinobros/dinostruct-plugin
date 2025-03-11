@@ -4,7 +4,10 @@ export enum DinostructExceptionCode
 {
     UnknownError = "UNKNOWN_ERROR",
 
+    NotInitialized = "NOT_INITIALIZED",
     AlreadyInitialized = "ALREADY_INITIALIZED",
+
+    MissingConfiguration = "MISSING_CONFIGURATION"
 }
 
 export class DinostructException extends RuntimeException

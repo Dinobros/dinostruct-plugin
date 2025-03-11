@@ -88,7 +88,7 @@
           }
         },
         "aceCategories": {
-          "custom": "Custom",
+          "error-handling": "Error Handling",
           "log-events": "Log Events"
         },
         "conditions": {
@@ -100,6 +100,22 @@
               "number": {
                 "name": "Number",
                 "desc": "Number to test if greater than 100."
+              }
+            }
+          },
+          "error-any-trigger": {
+            "list-name": "On any error",
+            "display-text": "On any error",
+            "description": "Triggered whenever an error occurs."
+          },
+          "error-specific-trigger": {
+            "list-name": "On specific error",
+            "display-text": "On error [i]{0}[/i]",
+            "description": "Triggered whenever a specified error occurs.",
+            "params": {
+              "code": {
+                "name": "Error Code",
+                "desc": "The specific error code to trigger the event for."
               }
             }
           }
@@ -118,7 +134,7 @@
           },
           "log-event-payload": {
             "list-name": "Log event with payload",
-            "display-text": "Log a [i]{0}[/i] event with [i]{1}[/i] payload to be empty: [i]{2}[/i]",
+            "display-text": "Log a [i]{0}[/i] event with [i]{1}[/i] as payload to be empty: [i]{2}[/i]",
             "description": "Log a event to the database.",
             "params": {
               "type": {
@@ -137,15 +153,21 @@
           }
         },
         "expressions": {
-          "double": {
-            "description": "Double a number.",
-            "translated-name": "Double",
-            "params": {
-              "number": {
-                "name": "Number",
-                "desc": "The number to double."
-              }
-            }
+          "error_type-unknown": {
+            "description": "A constant value representing an unknown error.",
+            "translated-name": "XError_Unknown"
+          },
+          "error_type-not_initialized": {
+            "description": "A constant value representing an error due to the plugin not being initialized.",
+            "translated-name": "XError_NotInitialized"
+          },
+          "error_type-already_initialized": {
+            "description": "A constant value representing an error due to the plugin already being initialized.",
+            "translated-name": "XError_AlreadyInitialized"
+          },
+          "error_type-missing_configuration": {
+            "description": "A constant value representing an error due to a missing configuration.",
+            "translated-name": "XError_MissingConfiguration"
           }
         }
       }
