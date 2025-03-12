@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
-
 import type { FirebaseApp } from "firebase/app";
+
 import { getFirestore, type Firestore } from "firebase/firestore";
 
 import { v4 as uuid4 } from "uuid";
@@ -8,7 +8,7 @@ import { v4 as uuid4 } from "uuid";
 import Configs from "@/models/configs";
 import { DinostructException, DinostructExceptionCode } from "@/exceptions";
 
-const C3 = globalThis.C3;
+import DinostructC3Conditions from "./conditions";
 
 export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
 {
@@ -33,8 +33,17 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
     protected _isReturningUser: boolean;
     public get isReturningUser(): boolean { return this._isReturningUser; }
 
-    protected _lastError?: Error;
-    public get lastError(): Error | undefined { return this._lastError; }
+    protected _lastError?: unknown;
+    public get lastError(): unknown { return this._lastError; }
+
+    public readonly handleError = (error: unknown) =>
+    {
+        // eslint-disable-next-line no-console
+        console.error(error);
+
+        this._lastError = error;
+        this._trigger(DinostructC3Conditions.TriggerOnError);
+    };
 
     public constructor()
     {
@@ -50,7 +59,21 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
         this.configs = new Configs(this._getInitProperties());
         if (this.configs.autoInitialize)
         {
-            this.initialize();
+            this.runtime.addEventListener("beforeprojectstart", async () =>
+            {
+                try
+                {
+                    await this.initialize();
+
+                    // eslint-disable-next-line no-console
+                    console.info("Dinostruct plugin automatically initialized successfully. " +
+                        `(v${DinostructC3Instance.Version})`);
+                }
+                catch (error)
+                {
+                    this.handleError(error);
+                }
+            });
         }
 
         this._addDOMMessageHandler("dinobros:dinostruct:runtime", this._onDomMessage);
@@ -104,12 +127,8 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
         }
 
         await this._initializeIds();
-
         this._initializeFirebase();
 
-        // eslint-disable-next-line no-console
-        console.info(`Dinostruct plugin initialized successfully. (v${DinostructC3Instance.Version})`);
+        this._initialized = true;
     }
 }
-
-C3.Plugins.Dinobros_DinostructPlugin.Instance = DinostructC3Instance;

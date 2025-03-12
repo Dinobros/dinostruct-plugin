@@ -31,14 +31,14 @@ export default class DinostructSDK extends SDK.IPluginBase
         this._info.SetAuthor(DinostructSDK.Author);
         this._info.SetVersion(DinostructSDK.Version);
         this._info.SetHelpUrl(globalThis.lang(".help-url"));
+        this._info.SetIcon("icon.png", "image/png");
         this._info.SetIsSingleGlobal(true);
         this._info.SetCanBeBundled(false);
 
-        // this._info.AddC3RuntimeScript("c3runtime/runtime.js");
-        this._info.AddC3RuntimeScript("c3runtime/internals.js");
-        this._info.AddC3RuntimeScript("c3runtime/vendors.js");
+        this._info.SetC3RuntimeScripts(["c3runtime/index.js", "c3runtime/vendor.js"]);
+        this._info.SetDOMSideScripts(["c3runtime/domSide.js"]);
 
-        this._info.SetDOMSideScripts(["c3runtime/dom.js"]);
+        this._info.SetRuntimeModuleMainScript("c3runtime/index.js");
 
         SDK.Lang.PushContext(".properties");
 

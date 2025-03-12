@@ -153,6 +153,11 @@
           }
         },
         "expressions": {
+          "error-code": {
+            "description": "Get the last error code.",
+            "translated-name": "ErrorCode"
+          },
+
           "error_type-unknown": {
             "description": "A constant value representing an unknown error.",
             "translated-name": "XError_Unknown"

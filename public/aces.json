@@ -21,6 +21,12 @@
     ],
     "expressions": [
       {
+        "id": "error-code",
+        "expressionName": "ErrorCode",
+        "returnType": "string"
+      },
+
+      {
         "id": "error_type-unknown",
         "expressionName": "XError_Unknown",
         "returnType": "string"

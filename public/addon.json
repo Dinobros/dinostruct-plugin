@@ -13,19 +13,13 @@
   "description": "The official Construct 3 Plugin by Dinobros used widely in all our projects. 🦖",
   "editor-scripts": ["index.js"],
   "file-list": [
-    "c3runtime/plugin.js",
-    "c3runtime/type.js",
-    "c3runtime/instance.js",
-    "c3runtime/conditions.js",
-    "c3runtime/actions.js",
-    "c3runtime/expressions.js",
-    "c3runtime/dom.js",
-    "c3runtime/internals.js",
-    "c3runtime/vendors.js",
+    "c3runtime/index.js",
+    "c3runtime/domSide.js",
+    "c3runtime/vendor.js",
     "lang/en-US.json",
     "aces.json",
     "addon.json",
-    "icon.svg",
+    "icon.png",
     "index.js"
   ]
 }

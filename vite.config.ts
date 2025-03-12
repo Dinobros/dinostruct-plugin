@@ -10,13 +10,8 @@ export default defineConfig({
     lib: {
       entry: {
         "index": realpath("src/index.ts"),
-        "c3runtime/actions": realpath("src/c3runtime/actions/index.ts"),
-        "c3runtime/conditions": realpath("src/c3runtime/conditions/index.ts"),
-        "c3runtime/dom": realpath("src/c3runtime/dom.ts"),
-        "c3runtime/expressions": realpath("src/c3runtime/expressions/index.ts"),
-        "c3runtime/instance": realpath("src/c3runtime/instance.ts"),
-        "c3runtime/plugin": realpath("src/c3runtime/plugin.ts"),
-        "c3runtime/type": realpath("src/c3runtime/type.ts")
+        "c3runtime/index": realpath("src/c3runtime/index.ts"),
+        "c3runtime/domSide": realpath("src/c3runtime/domSide.ts")
       },
       formats: ["es"]
     },
@@ -27,10 +22,7 @@ export default defineConfig({
 
         manualChunks: function(id)
         {
-          if (/src\/\w+\.ts/.exec(id)) { return undefined; }
-          if (id.includes("node_modules")) { return "vendors"; }
-          if (!(id.includes("c3runtime"))) { return "internals"; }
-          else if (/src\/c3runtime\/\w+\/(?!index)\w+\.ts/.exec(id)) { return "runtime"; }
+          if (id.includes("node_modules")) { return "vendor"; }
 
           return undefined;
         }

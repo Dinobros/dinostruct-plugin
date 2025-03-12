@@ -3,7 +3,7 @@
 import { DinostructException, DinostructExceptionCode } from "@/exceptions";
 import type Dinostruct from "../instance";
 
-export function LastError(this: Dinostruct): DinostructExceptionCode
+export function ErrorCode(this: Dinostruct): DinostructExceptionCode
 {
     if ((this.lastError === undefined) || !(this.lastError instanceof DinostructException))
     {
