@@ -89,7 +89,8 @@
         },
         "aceCategories": {
           "error-handling": "Error Handling",
-          "log-events": "Log Events"
+          "log-events": "Log Events",
+          "management": "Configuration & Management"
         },
         "conditions": {
           "is-large-number": {
@@ -150,6 +151,12 @@
                 "desc": "If true, the payload JSON object will be empty after logging."
               }
             }
+          },
+
+          "initialize": {
+            "list-name": "Initialize",
+            "display-text": "Initialize",
+            "description": "Initialize the plugin."
           }
         },
         "expressions": {

@@ -48,7 +48,6 @@
       }
     ]
   },
-
   "log-events": {
     "actions": [
       {
@@ -81,5 +80,16 @@
         ]
       }
     ]
+  },
+  "management": {
+    "actions": [{
+      "id": "initialize",
+      "scriptName": "Initialize",
+      "highlight": true,
+      "isAsync": true
+    }],
+    "conditions": [{
+      "id": "initialized-trigger",
+    }]
   }
 }
