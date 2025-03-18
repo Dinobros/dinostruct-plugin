@@ -19,20 +19,16 @@
             "desc": "The timeout in milliseconds to be used for network requests."
           },
           "log_events": {
-            "name": "Log Events",
-            "desc": "Log Events configurations."
+            "name": "Event logging",
+            "desc": "Event logging configurations."
           },
           "enable-log_events": {
-            "name": "Enable Log Events",
+            "name": "Enable Event logging",
             "desc": "If enabled, the plugin will log events to the database."
-          },
-          "use-custom-log_events-endpoint": {
-            "name": "Use Custom Endpoint",
-            "desc": "If enabled, the plugin will use a custom endpoint to log events rather than Firebase."
           },
           "custom-log_events-endpoint": {
             "name": "Custom Endpoint URL",
-            "desc": "The URL of the custom endpoint to use for logging events."
+            "desc": "If set, the plugin will use this URL to log events rather than Firebase."
           },
           "firebase-sdk": {
             "name": "Firebase SDK",
@@ -89,21 +85,10 @@
         },
         "aceCategories": {
           "error-handling": "Error Handling",
-          "log-events": "Log Events",
+          "log-events": "Event Logging",
           "management": "Configuration & Management"
         },
         "conditions": {
-          "is-large-number": {
-            "list-name": "Is large number",
-            "display-text": "[i]{0}[/i] is a large number",
-            "description": "Test if a number is greater than 100.",
-            "params": {
-              "number": {
-                "name": "Number",
-                "desc": "Number to test if greater than 100."
-              }
-            }
-          },
           "error-any-trigger": {
             "list-name": "On any error",
             "display-text": "On any error",
@@ -119,6 +104,12 @@
                 "desc": "The specific error code to trigger the event for."
               }
             }
+          },
+
+          "initialized-trigger": {
+            "list-name": "On initialized",
+            "display-text": "On initialized",
+            "description": "Triggered when the plugin is initialized."
           }
         },
         "actions": {
@@ -169,6 +160,7 @@
             "description": "A constant value representing an unknown error.",
             "translated-name": "XError_Unknown"
           },
+
           "error_type-not_initialized": {
             "description": "A constant value representing an error due to the plugin not being initialized.",
             "translated-name": "XError_NotInitialized"
@@ -177,9 +169,32 @@
             "description": "A constant value representing an error due to the plugin already being initialized.",
             "translated-name": "XError_AlreadyInitialized"
           },
+
           "error_type-missing_configuration": {
             "description": "A constant value representing an error due to a missing configuration.",
             "translated-name": "XError_MissingConfiguration"
+          },
+
+          "error_type-network": {
+            "description": "A constant value representing an error due to a network error.",
+            "translated-name": "XError_NetworkError"
+          },
+          "error_type-request": {
+            "description": "A constant value representing an error due to a request error.",
+            "translated-name": "XError_RequestError"
+          },
+          "error_type-timeout": {
+            "description": "A constant value representing an error due to a timeout.",
+            "translated-name": "XError_TimeoutError"
+          },
+
+          "error_type-not_authenticated": {
+            "description": "A constant value representing an error due to the user not being authenticated.",
+            "translated-name": "XError_NotAuthenticated"
+          },
+          "error_type-not_authorized": {
+            "description": "A constant value representing an error due to the user not being authorized.",
+            "translated-name": "XError_NotAuthorized"
           }
         }
       }

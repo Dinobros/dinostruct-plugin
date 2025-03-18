@@ -23,6 +23,7 @@
       {
         "id": "error-code",
         "expressionName": "ErrorCode",
+        "highlight": true,
         "returnType": "string"
       },
 
@@ -31,6 +32,7 @@
         "expressionName": "XError_Unknown",
         "returnType": "string"
       },
+
       {
         "id": "error_type-not_initialized",
         "expressionName": "XError_NotInitialized",
@@ -41,9 +43,37 @@
         "expressionName": "XError_AlreadyInitialized",
         "returnType": "string"
       },
+
       {
         "id": "error_type-missing_configuration",
         "expressionName": "XError_MissingConfiguration",
+        "returnType": "string"
+      },
+
+      {
+        "id": "error_type-network",
+        "expressionName": "XError_NetworkError",
+        "returnType": "string"
+      },
+      {
+        "id": "error_type-request",
+        "expressionName": "XError_RequestError",
+        "returnType": "string"
+      },
+      {
+        "id": "error_type-timeout",
+        "expressionName": "XError_TimeoutError",
+        "returnType": "string"
+      },
+
+      {
+        "id": "error_type-not_authenticated",
+        "expressionName": "XError_NotAuthenticated",
+        "returnType": "string"
+      },
+      {
+        "id": "error_type-not_authorized",
+        "expressionName": "XError_NotAuthorized",
         "returnType": "string"
       }
     ]
@@ -90,6 +120,9 @@
     }],
     "conditions": [{
       "id": "initialized-trigger",
+      "scriptName": "TriggerOnInitialized",
+      "highlight": true,
+      "isTrigger": true
     }]
   }
 }

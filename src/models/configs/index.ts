@@ -5,9 +5,8 @@ export default class Configs
     public autoInitialize: boolean;
     public timeout: number;
 
-    public enableLogEvents: boolean;
-    public useLogEventsEndpoint: boolean;
-    public customLogEventsEndpoint: string;
+    public enableEventLogging: boolean;
+    public eventLoggingEndpoint: string;
 
     public readonly firebase: FirebaseConfigs;
 
@@ -16,9 +15,8 @@ export default class Configs
         this.autoInitialize = properties[0] as boolean;
         this.timeout = properties[1] as number;
 
-        this.enableLogEvents = properties[2] as boolean;
-        this.useLogEventsEndpoint = properties[3] as boolean;
-        this.customLogEventsEndpoint = properties[4] as string;
+        this.enableEventLogging = properties[2] as boolean;
+        this.eventLoggingEndpoint = properties[3] as string;
 
         this.firebase = new FirebaseConfigs(properties);
     }

@@ -18,18 +18,18 @@ export default class FirebaseConfigs
 
     public constructor(properties: SDKPropertyType[])
     {
-        this.apiKey = properties[5] as string;
-        this.authDomain = properties[6] as string;
-        this.databaseUrl = properties[7] as string;
-        this.projectId = properties[8] as string;
-        this.storageBucket = properties[9] as string;
-        this.messagingSenderId = properties[10] as string;
-        this.appId = properties[11] as string;
-        this.measurementId = properties[12] as string;
-        this.defaultRegion = properties[13] as string;
+        this.apiKey = properties[4] as string;
+        this.authDomain = properties[5] as string;
+        this.databaseUrl = properties[6] as string;
+        this.projectId = properties[7] as string;
+        this.storageBucket = properties[8] as string;
+        this.messagingSenderId = properties[9] as string;
+        this.appId = properties[10] as string;
+        this.measurementId = properties[11] as string;
+        this.defaultRegion = properties[12] as string;
 
-        this.enableAppCheck = properties[14] as boolean;
-        this.recaptchaSiteKey = properties[15] as string;
+        this.enableAppCheck = properties[13] as boolean;
+        this.recaptchaSiteKey = properties[14] as string;
     }
 
     public getOptions(): FirebaseOptions

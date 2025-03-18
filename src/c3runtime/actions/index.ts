@@ -1,10 +1,10 @@
-import * as LogEvents from "./log-events";
+import * as EventLogging from "./event-logging";
 import * as Management from "./management";
 
 import type { Action } from "./types";
 
 const DinostructC3Actions = {
-    ...LogEvents,
+    ...EventLogging,
     ...Management
 
 } satisfies Record<string, Action>;
