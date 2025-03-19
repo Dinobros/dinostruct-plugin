@@ -17,6 +17,10 @@ export function XError_Unknown(this: Dinostruct): string
 {
     return DinostructExceptionCode.UnknownError;
 }
+export function XError_Implementation(this: Dinostruct): string
+{
+    return DinostructExceptionCode.ImplementationError;
+}
 
 export function XError_NotInitialized(this: Dinostruct): string
 {

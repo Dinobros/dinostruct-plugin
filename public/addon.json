@@ -16,6 +16,7 @@
     "c3runtime/index.js",
     "c3runtime/domSide.js",
     "c3runtime/vendor.js",
+    "c3runtime/firestore.js",
     "lang/en-US.json",
     "aces.json",
     "addon.json",

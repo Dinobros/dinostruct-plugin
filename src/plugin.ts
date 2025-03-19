@@ -35,9 +35,13 @@ export default class DinostructSDK extends SDK.IPluginBase
         this._info.SetIsSingleGlobal(true);
         this._info.SetCanBeBundled(false);
 
-        this._info.SetC3RuntimeScripts(["c3runtime/index.js", "c3runtime/vendor.js"]);
-        this._info.SetDOMSideScripts(["c3runtime/domSide.js"]);
+        this._info.SetC3RuntimeScripts([
+            "c3runtime/index.js",
+            "c3runtime/vendor.js",
+            "c3runtime/firestore.js"
+        ]);
 
+        this._info.SetDOMSideScripts(["c3runtime/domSide.js"]);
         this._info.SetRuntimeModuleMainScript("c3runtime/index.js");
 
         SDK.Lang.PushContext(".properties");

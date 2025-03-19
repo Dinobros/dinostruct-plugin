@@ -1,3 +1,4 @@
+import DinostructC3Conditions from "../conditions";
 import Dinostruct from "../instance";
 
 export async function Initialize(this: Dinostruct): Promise<void>
@@ -7,7 +8,9 @@ export async function Initialize(this: Dinostruct): Promise<void>
         await this.initialize();
 
         // eslint-disable-next-line no-console
-        console.info(`Dinostruct plugin manually initialized successfully. (v${Dinostruct.Version})`);
+        console.info(`Dinostruct (v${Dinostruct.Version}) manually initialized successfully. RAAAWR! 🦖`);
+
+        this._trigger(DinostructC3Conditions.TriggerOnInitialized);
     }
     catch (error)
     {

@@ -160,6 +160,10 @@
             "description": "A constant value representing an unknown error.",
             "translated-name": "XError_Unknown"
           },
+          "error_type-implementation": {
+            "description": "A constant value representing an error due to an implementation issue.",
+            "translated-name": "XError_Implementation"
+          },
 
           "error_type-not_initialized": {
             "description": "A constant value representing an error due to the plugin not being initialized.",

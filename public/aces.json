@@ -32,6 +32,11 @@
         "expressionName": "XError_Unknown",
         "returnType": "string"
       },
+      {
+        "id": "error_type-implementation",
+        "expressionName": "XError_Implementation",
+        "returnType": "string"
+      },
 
       {
         "id": "error_type-not_initialized",

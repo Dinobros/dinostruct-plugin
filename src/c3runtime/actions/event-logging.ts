@@ -17,5 +17,5 @@ export async function LogEvent(this: Dinostruct, type: string, payload?: IObject
         _payload = { };
     }
 
-    console.log(`[${type}]`, _payload);
+    await this.logEvent(type, _payload);
 }

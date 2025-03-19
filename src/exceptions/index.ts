@@ -3,6 +3,7 @@ import { RuntimeException } from "@byloth/core";
 export enum DinostructExceptionCode
 {
     UnknownError = "UNKNOWN_ERROR",
+    ImplementationError = "IMPLEMENTATION_ERROR",
 
     NotInitialized = "NOT_INITIALIZED",
     AlreadyInitialized = "ALREADY_INITIALIZED",

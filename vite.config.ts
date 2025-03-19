@@ -22,7 +22,15 @@ export default defineConfig({
 
         manualChunks: function(id)
         {
-          if (id.includes("node_modules")) { return "vendor"; }
+          if (id.includes("node_modules"))
+          {
+            if (id.includes("firestore"))
+            {
+              return "firestore";
+            }
+
+            return "vendor";
+          }
 
           return undefined;
         }

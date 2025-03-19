@@ -28,7 +28,23 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
 
     protected _onDomMessage = (message: unknown): void =>
     {
-        console.log("Received DOM message: ", message);
+        try
+        {
+            if (!(message instanceof Object) || !("action" in message))
+            {
+                throw new DinostructException(DinostructExceptionCode.ImplementationError);
+            }
+
+            switch (message.action)
+            {
+                default:
+                    throw new DinostructException(DinostructExceptionCode.ImplementationError);
+            }
+        }
+        catch (error)
+        {
+            this.handleError(error);
+        }
     };
 
     public readonly configs: Configs;
@@ -77,8 +93,10 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
                     await this.initialize();
 
                     // eslint-disable-next-line no-console
-                    console.info("Dinostruct plugin automatically initialized successfully. " +
-                        `(v${DinostructC3Instance.Version})`);
+                    console.info(`Dinostruct (v${DinostructC3Instance.Version})` +
+                        ` automatically initialized successfully. RAAAWR! 🦖`);
+
+                    this._trigger(DinostructC3Conditions.TriggerOnInitialized);
                 }
                 catch (error)
                 {
@@ -87,19 +105,7 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
             });
         }
 
-        this._addDOMMessageHandler("dinobros:dinostruct:runtime", this._onDomMessage);
-
-        setTimeout(async () =>
-        {
-            this._postToDOM("dinobros:dinostruct:dom:sync", { message: "Hello from sync runtime!" });
-
-            const response = await this._postToDOMAsync("dinobros:dinostruct:dom:async", {
-                message: "Hello from async runtime!"
-            });
-
-            console.log("Received async response: ", response);
-
-        }, 5_000);
+        this._addDOMMessageHandler("dinobros:dinostruct:dom", this._onDomMessage);
     }
 
     protected async _initializeIds(): Promise<void>
@@ -125,7 +131,7 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
 
         this._firebase = initializeApp(firebaseOptions);
 
-        Object.defineProperty(this, "auth", { value: getAuth(this._firebase) });
+        Object.defineProperty(this, "firebaseAuth", { value: getAuth(this._firebase) });
         Object.defineProperty(this, "firestore", { value: getFirestore(this._firebase) });
     }
 
@@ -175,7 +181,7 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
                 }
 
                 // eslint-disable-next-line no-console
-                console.debug(`Event logged: "${type}"`);
+                console.debug(`Logged event: "${type}" 👀`);
             };
         }
 
@@ -211,8 +217,25 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
             }
 
             // eslint-disable-next-line no-console
-            console.debug(`Event logged: "${type}"`);
+            console.debug(`Logged event: "${type}" 👀`);
         };
+    }
+
+    protected async _logInitEvent(): Promise<void>
+    {
+        const [ipAddress, browser] = await Promise.all([
+            fetch("https://api.ipify.org/").then((response) => response.text()),
+            this._postToDOMAsync("dinobros:dinostruct:runtime", { action: "browser:info" })
+        ]);
+
+        const payload = {
+            ...browser as JSONObject,
+
+            ipAddress: ipAddress,
+            version: 2
+        };
+
+        await this.logEvent("game:init", payload, false);
     }
 
     public async initialize(): Promise<void>
@@ -228,6 +251,8 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
         if (this.configs.enableEventLogging)
         {
             Object.defineProperty(this, "logEvent", { value: this._getLogEventFn() });
+
+            this._logInitEvent();
         }
 
         this._initialized = true;
