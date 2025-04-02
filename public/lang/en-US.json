@@ -9,6 +9,7 @@
         "name": "Dinostruct",
         "description": "The official Construct 3 Plugin by Dinobros used widely in all our projects. 🦖",
         "help-url": "https://github.com/Dinobros/dinostruct-plugin#readme",
+
         "properties": {
           "auto-initialize": {
             "name": "Auto Initialize",
@@ -83,36 +84,26 @@
             "desc": "The ReCAPTCHA Site Key to be used for App Check."
           }
         },
+
         "aceCategories": {
+          "authentication": "Authentication",
           "error-handling": "Error Handling",
           "log-events": "Event Logging",
           "management": "Configuration & Management"
         },
-        "conditions": {
-          "error-any-trigger": {
-            "list-name": "On any error",
-            "display-text": "On any error",
-            "description": "Triggered whenever an error occurs."
-          },
-          "error-specific-trigger": {
-            "list-name": "On specific error",
-            "display-text": "On error [i]{0}[/i]",
-            "description": "Triggered whenever a specified error occurs.",
+
+        "actions": {
+          "log_in-anonymously": {
+            "list-name": "Log in anonymously",
+            "display-text": "Log in anonymously with username: [i]{0}[/i]",
+            "description": "Log in the user anonymously.",
             "params": {
-              "code": {
-                "name": "Error Code",
-                "desc": "The specific error code to trigger the event for."
+              "username": {
+                "name": "Username",
+                "desc": "The username to be used by the anonymous user."
               }
             }
           },
-
-          "initialized-trigger": {
-            "list-name": "On initialized",
-            "display-text": "On initialized",
-            "description": "Triggered when the plugin is initialized."
-          }
-        },
-        "actions": {
           "log-event": {
             "list-name": "Log event",
             "display-text": "Log a [i]{0}[/i] event",
@@ -150,6 +141,66 @@
             "description": "Initialize the plugin."
           }
         },
+
+        "conditions": {
+          "is-user-logged_in": {
+            "list-name": "Is user logged in",
+            "display-text": "Is user logged in",
+            "description": "A condition that's true if the user is logged in."
+          },
+          "user-login-trigger": {
+            "list-name": "On user login",
+            "display-text": "On user login",
+            "description": "Triggered when the user logs in."
+          },
+
+          "is-user-new": {
+            "list-name": "Is a new user",
+            "display-text": "Is a new user",
+            "description": "A condition that's true if this is the first time the user logs in."
+          },
+
+          "is-user-anonymous": {
+            "list-name": "Is user anonymous",
+            "display-text": "Is user anonymous",
+            "description": "A condition that's true if the user is anonymous."
+          },
+
+          "error-any-trigger": {
+            "list-name": "On any error",
+            "display-text": "On any error",
+            "description": "Triggered whenever an error occurs."
+          },
+          "error-specific-trigger": {
+            "list-name": "On specific error",
+            "display-text": "On error [i]{0}[/i]",
+            "description": "Triggered whenever a specified error occurs.",
+            "params": {
+              "code": {
+                "name": "Error Code",
+                "desc": "The specific error code to trigger the event for."
+              }
+            }
+          },
+
+          "is-initialized": {
+            "list-name": "Is initialized",
+            "display-text": "Is initialized",
+            "description": "A condition that's true if the plugin is initialized."
+          },
+          "initialized-trigger": {
+            "list-name": "On initialized",
+            "display-text": "On initialized",
+            "description": "Triggered when the plugin is initialized."
+          },
+
+          "is-device-new": {
+            "list-name": "Is a new device",
+            "display-text": "Is a new device",
+            "description": "A condition that's true if this is the first time the device launches the game."
+          }
+        },
+
         "expressions": {
           "error-code": {
             "description": "Get the last error code.",
@@ -199,6 +250,15 @@
           "error_type-not_authorized": {
             "description": "A constant value representing an error due to the user not being authorized.",
             "translated-name": "XError_NotAuthorized"
+          },
+
+          "error_type-user_not_found": {
+            "description": "A constant value representing an error due to the user not being found.",
+            "translated-name": "XError_UserNotFound"
+          },
+          "error_type-user_already_exists": {
+            "description": "A constant value representing an error due to the user already existing.",
+            "translated-name": "XError_UserAlreadyExists"
           }
         }
       }

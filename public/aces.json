@@ -1,6 +1,41 @@
 ﻿{
   "$schema": "../schemas/aces.schema.json",
 
+  "authentication": {
+    "actions": [{
+      "id": "log_in-anonymously",
+      "scriptName": "LogInAnonymously",
+      "params": [{
+        "id": "username",
+        "type": "string"
+      }],
+      "highlight": true,
+      "isAsync": true
+    }],
+    "conditions": [
+      {
+        "id": "is-user-logged_in",
+        "scriptName": "IsUserLoggedIn",
+        "highlight": true
+      },
+      {
+        "id": "user-login-trigger",
+        "scriptName": "TriggerOnUserLogin",
+        "highlight": true,
+        "isTrigger": true
+      },
+
+      {
+        "id": "is-user-new",
+        "scriptName": "IsNewUser"
+      },
+
+      {
+        "id": "is-user-anonymous",
+        "scriptName": "IsUserAnonymous"
+      }
+    ]
+  },
   "error-handling": {
     "conditions": [
       {
@@ -80,6 +115,17 @@
         "id": "error_type-not_authorized",
         "expressionName": "XError_NotAuthorized",
         "returnType": "string"
+      },
+
+      {
+        "id": "error_type-user_not_found",
+        "expressionName": "XError_UserNotFound",
+        "returnType": "string"
+      },
+      {
+        "id": "error_type-user_already_exists",
+        "expressionName": "XError_UserAlreadyExists",
+        "returnType": "string"
       }
     ]
   },
@@ -123,11 +169,23 @@
       "highlight": true,
       "isAsync": true
     }],
-    "conditions": [{
-      "id": "initialized-trigger",
-      "scriptName": "TriggerOnInitialized",
-      "highlight": true,
-      "isTrigger": true
-    }]
+    "conditions": [
+      {
+        "id": "is-initialized",
+        "scriptName": "IsInitialized",
+        "highlight": true
+      },
+      {
+        "id": "initialized-trigger",
+        "scriptName": "TriggerOnInitialized",
+        "highlight": true,
+        "isTrigger": true
+      },
+
+      {
+        "id": "is-device-new",
+        "scriptName": "IsNewDevice"
+      }
+    ]
   }
 }

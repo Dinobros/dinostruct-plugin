@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import type { FirebaseApp } from "firebase/app";
 
 import { getAuth } from "firebase/auth";
-import type { Auth } from "firebase/auth";
+import type { Auth, User } from "firebase/auth";
 
 import { addDoc, collection, getFirestore, serverTimestamp } from "firebase/firestore";
 import type { Firestore } from "firebase/firestore";
@@ -25,6 +25,9 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
 
     protected _deviceId: string;
     protected _sessionId: string;
+
+    protected _isNewDevice: boolean;
+    public get isNewDevice(): boolean { return this._isNewDevice; }
 
     protected _onDomMessage = (message: unknown): void =>
     {
@@ -53,8 +56,11 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
     public get firebaseAuth(): Auth { throw new DinostructException(DinostructExceptionCode.NotInitialized); }
     public get firestore(): Firestore { throw new DinostructException(DinostructExceptionCode.NotInitialized); }
 
-    protected _isReturningUser: boolean;
-    public get isReturningUser(): boolean { return this._isReturningUser; }
+    protected _user: User | null;
+    public get user(): User | null { return this._user; }
+
+    protected _isNewUser: boolean;
+    public get isNewUser(): boolean { return this._isNewUser; }
 
     protected _lastError?: unknown;
     public get lastError(): unknown { return this._lastError; }
@@ -78,8 +84,10 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
 
         this._deviceId = "";
         this._sessionId = "";
+        this._isNewDevice = true;
 
-        this._isReturningUser = false;
+        this._user = null;
+        this._isNewUser = true;
 
         this.logEvent = async () => { /* ... */ };
 
@@ -111,10 +119,7 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
     protected async _initializeIds(): Promise<void>
     {
         let deviceId = await this.runtime.storage.getItem("dinostruct:internal:deviceId") as string;
-        if (deviceId)
-        {
-            this._isReturningUser = true;
-        }
+        if (deviceId) { this._isNewDevice = false; }
         else
         {
             deviceId = uuid4();

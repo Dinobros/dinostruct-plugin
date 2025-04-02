@@ -16,16 +16,34 @@ export enum DinostructExceptionCode
 
     NotAuthenticated = "NOT_AUTHENTICATED",
     NotAuthorized = "NOT_AUTHORIZED",
+
+    UserNotFound = "USER_NOT_FOUND",
+    UserAlreadyExists = "USER_ALREADY_EXISTS",
 }
 
 export class DinostructException extends RuntimeException
 {
     public readonly code: DinostructExceptionCode;
 
-    public constructor(code: DinostructExceptionCode = DinostructExceptionCode.UnknownError, cause?: unknown)
+    public constructor(
+        code: DinostructExceptionCode = DinostructExceptionCode.UnknownError, cause?: unknown, message?: string
+    )
     {
-        super(`An error occurred in Dinostruct plugin with code: ${code}`, cause);
+        if (!(message))
+        {
+            message = `An error occurred in Dinostruct plugin with code: ${code}`;
+        }
+
+        super(message, cause);
 
         this.code = code;
+    }
+}
+
+export class UserAlreadyExistsException extends DinostructException
+{
+    public constructor(cause?: unknown, message?: string)
+    {
+        super(DinostructExceptionCode.UserAlreadyExists, cause, message);
     }
 }

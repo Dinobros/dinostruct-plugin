@@ -1,9 +1,11 @@
+import * as Authentication from "./authentication";
 import * as EventLogging from "./event-logging";
 import * as Management from "./management";
 
 import type { Action } from "./types";
 
 const DinostructC3Actions = {
+    ...Authentication,
     ...EventLogging,
     ...Management
 
