@@ -58,6 +58,11 @@ export function XError_NotAuthorized(this: Dinostruct): string
     return DinostructExceptionCode.NotAuthorized;
 }
 
+export function XError_AlreadyAuthenticated(this: Dinostruct): string
+{
+    return DinostructExceptionCode.AlreadyAuthenticated;
+}
+
 export function XError_UserNotFound(this: Dinostruct): string
 {
     return DinostructExceptionCode.UserNotFound;

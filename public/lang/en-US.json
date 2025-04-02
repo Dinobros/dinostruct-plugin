@@ -252,6 +252,11 @@
             "translated-name": "XError_NotAuthorized"
           },
 
+          "error_type-already_authenticated": {
+            "description": "A constant value representing an error due to the user already being authenticated.",
+            "translated-name": "XError_AlreadyAuthenticated"
+          },
+
           "error_type-user_not_found": {
             "description": "A constant value representing an error due to the user not being found.",
             "translated-name": "XError_UserNotFound"

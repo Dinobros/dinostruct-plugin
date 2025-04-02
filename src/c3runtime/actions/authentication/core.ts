@@ -40,7 +40,7 @@ export async function logInAnonymously({ firebaseAuth, firestore }: Dinostruct, 
     const { user } = await signInAnonymously(firebaseAuth);
 
     // eslint-disable-next-line no-console
-    console.info(`Logged in anonymously as ${user.uid}. 🕵️`);
+    console.info(`Logged in as a new anonymous user. SSSH! 🕵️`);
 
     const payload: AccountPayload = { provider: "anonymous" };
 

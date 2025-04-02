@@ -16,6 +16,7 @@ import type { FirestoreRawEvent } from "@/models/firestore";
 import { DinostructException, DinostructExceptionCode } from "@/exceptions";
 
 import DinostructC3Conditions from "./conditions";
+import { TimedPromise } from "@byloth/core";
 
 export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
 {
@@ -84,10 +85,10 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
 
         this._deviceId = "";
         this._sessionId = "";
-        this._isNewDevice = true;
+        this._isNewDevice = false;
 
         this._user = null;
-        this._isNewUser = true;
+        this._isNewUser = false;
 
         this.logEvent = async () => { /* ... */ };
 
@@ -119,18 +120,18 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
     protected async _initializeIds(): Promise<void>
     {
         let deviceId = await this.runtime.storage.getItem("dinostruct:internal:deviceId") as string;
-        if (deviceId) { this._isNewDevice = false; }
-        else
+        if (!(deviceId))
         {
-            deviceId = uuid4();
+            this._isNewDevice = true;
 
+            deviceId = uuid4();
             await this.runtime.storage.setItem("dinostruct:internal:deviceId", deviceId);
         }
 
         this._deviceId = deviceId;
         this._sessionId = uuid4();
     }
-    protected _initializeFirebase(): void
+    protected _initializeFirebase(): Promise<void>
     {
         const firebaseOptions = this.configs.firebase.getOptions();
 
@@ -138,6 +139,25 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
 
         Object.defineProperty(this, "firebaseAuth", { value: getAuth(this._firebase) });
         Object.defineProperty(this, "firestore", { value: getFirestore(this._firebase) });
+
+        return new TimedPromise<void>((resolve, reject) =>
+        {
+            const unsubscribe = this.firebaseAuth.onAuthStateChanged((user: User | null) =>
+            {
+                if (user)
+                {
+                    this._user = user;
+
+                    // eslint-disable-next-line no-console
+                    console.info(`Logged in as an existing anonymous user. SSSH! 🕵️`);
+                }
+
+                unsubscribe();
+                resolve();
+
+            }, reject);
+
+        }, this.configs.timeout);
     }
 
     protected _getLogEventFn(): (type: string, payload?: Payload, checkUser?: boolean) => Promise<void>
@@ -186,7 +206,7 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
                 }
 
                 // eslint-disable-next-line no-console
-                console.debug(`Logged event: "${type}" 👀`);
+                console.debug(`Logged event: "${type}". UHM? 👀`);
             };
         }
 
@@ -222,7 +242,7 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
             }
 
             // eslint-disable-next-line no-console
-            console.debug(`Logged event: "${type}" 👀`);
+            console.debug(`Logged event: "${type}". UHM? 👀`);
         };
     }
 
@@ -251,7 +271,7 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
         }
 
         await this._initializeIds();
-        this._initializeFirebase();
+        await this._initializeFirebase();
 
         if (this.configs.enableEventLogging)
         {

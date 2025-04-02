@@ -17,6 +17,8 @@ export enum DinostructExceptionCode
     NotAuthenticated = "NOT_AUTHENTICATED",
     NotAuthorized = "NOT_AUTHORIZED",
 
+    AlreadyAuthenticated = "ALREADY_AUTHENTICATED",
+
     UserNotFound = "USER_NOT_FOUND",
     UserAlreadyExists = "USER_ALREADY_EXISTS",
 }
