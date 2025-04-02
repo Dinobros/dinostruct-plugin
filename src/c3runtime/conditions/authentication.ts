@@ -4,7 +4,12 @@ export function IsUserLoggedIn(this: Dinostruct): boolean
 {
     return (this._user !== null);
 }
+
 export function TriggerOnUserLogin(this: Dinostruct): boolean
+{
+    return true;
+}
+export function TriggerOnUserLogout(this: Dinostruct): boolean
 {
     return true;
 }

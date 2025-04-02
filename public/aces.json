@@ -2,26 +2,39 @@
   "$schema": "../schemas/aces.schema.json",
 
   "authentication": {
-    "actions": [{
-      "id": "log_in-anonymously",
-      "scriptName": "LogInAnonymously",
-      "params": [{
-        "id": "username",
-        "type": "string"
-      }],
-      "highlight": true,
-      "isAsync": true
-    }],
+    "actions": [
+      {
+        "id": "log_in-anonymously",
+        "scriptName": "LogInAnonymously",
+        "params": [{
+          "id": "username",
+          "type": "string"
+        }],
+        "highlight": true,
+        "isAsync": true
+      },
+      {
+        "id": "log_out",
+        "scriptName": "LogOut",
+        "isAsync": true
+      }
+    ],
     "conditions": [
       {
         "id": "is-user-logged_in",
         "scriptName": "IsUserLoggedIn",
         "highlight": true
       },
+
       {
         "id": "user-login-trigger",
         "scriptName": "TriggerOnUserLogin",
         "highlight": true,
+        "isTrigger": true
+      },
+      {
+        "id": "user-logout-trigger",
+        "scriptName": "TriggerOnUserLogout",
         "isTrigger": true
       },
 

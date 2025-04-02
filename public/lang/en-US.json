@@ -104,6 +104,12 @@
               }
             }
           },
+          "log_out": {
+            "list-name": "Log out",
+            "display-text": "Log out",
+            "description": "Log out the user."
+          },
+
           "log-event": {
             "list-name": "Log event",
             "display-text": "Log a [i]{0}[/i] event",
@@ -148,10 +154,16 @@
             "display-text": "Is user logged in",
             "description": "A condition that's true if the user is logged in."
           },
+
           "user-login-trigger": {
             "list-name": "On user login",
             "display-text": "On user login",
             "description": "Triggered when the user logs in."
+          },
+          "user-logout-trigger": {
+            "list-name": "On user logout",
+            "display-text": "On user logout",
+            "description": "Triggered when the user logs out."
           },
 
           "is-user-new": {
