@@ -1,6 +1,6 @@
-import type { FieldValue } from "firebase/firestore";
+import type { Timestamp } from "firebase/firestore";
 
-export interface UserPayload
+export interface UserPayload extends Record<string, unknown>
 {
     email?: string;
     username?: string;
@@ -10,7 +10,7 @@ export interface AccountPayload extends UserPayload
     provider: "anonymous" | "email";
 }
 
-export interface UserData extends AccountPayload
+export interface UserStore extends AccountPayload
 {
-    timestamp: FieldValue;
+    timestamp: Timestamp;
 }

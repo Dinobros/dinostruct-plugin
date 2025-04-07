@@ -1,5 +1,5 @@
-import { DinostructException, DinostructExceptionCode } from "@/exceptions";
 import type { FirebaseOptions } from "firebase/app";
+import { DinostructException, DinostructExceptionCode } from "@/exceptions";
 
 export default class FirebaseConfigs
 {

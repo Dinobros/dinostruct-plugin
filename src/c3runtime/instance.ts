@@ -1,22 +1,23 @@
+import { TimedPromise, TimeoutException } from "@byloth/core";
 import { initializeApp } from "firebase/app";
 import type { FirebaseApp } from "firebase/app";
 
 import { getAuth } from "firebase/auth";
 import type { Auth, User } from "firebase/auth";
 
-import { addDoc, collection, getFirestore, serverTimestamp } from "firebase/firestore";
-import type { Firestore } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, getFirestore, serverTimestamp } from "firebase/firestore";
+import type { DocumentReference, Firestore } from "firebase/firestore";
 
 import { v4 as uuid4 } from "uuid";
+
+import { DinostructException, DinostructExceptionCode } from "@/exceptions";
 
 import Configs from "@/models/configs";
 import type { Payload, RawEvent } from "@/models";
 import type { FirestoreRawEvent } from "@/models/firestore";
 
-import { DinostructException, DinostructExceptionCode } from "@/exceptions";
-
 import DinostructC3Conditions from "./conditions";
-import { TimedPromise } from "@byloth/core";
+import type { UserStore } from "./actions/authentication/types";
 
 export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
 {
@@ -24,11 +25,11 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
 
     protected _initialized: boolean;
 
+    protected _isNewDevice: boolean;
+    protected _isNewUser: boolean;
+
     protected _deviceId: string;
     protected _sessionId: string;
-
-    protected _isNewDevice: boolean;
-    public get isNewDevice(): boolean { return this._isNewDevice; }
 
     protected _onDomMessage = (message: unknown): void =>
     {
@@ -58,20 +59,19 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
     public get firestore(): Firestore { throw new DinostructException(DinostructExceptionCode.NotInitialized); }
 
     protected _user: User | null;
-    public get user(): User | null { return this._user; }
+    protected _userStore: UserStore | null;
 
-    protected _isNewUser: boolean;
-    public get isNewUser(): boolean { return this._isNewUser; }
+    protected _lastKeys: Map<string, unknown>;
 
-    protected _lastError?: unknown;
-    public get lastError(): unknown { return this._lastError; }
+    public get lastError(): unknown { return this._lastKeys.get("error"); }
+    public get lastProperty(): unknown { return this._lastKeys.get("property"); }
 
     public readonly handleError = (error: unknown) =>
     {
         // eslint-disable-next-line no-console
         console.error(error);
 
-        this._lastError = error;
+        this._lastKeys.set("error", error);
         this._trigger(DinostructC3Conditions.TriggerOnError);
     };
 
@@ -83,12 +83,16 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
 
         this._initialized = false;
 
+        this._isNewDevice = false;
+        this._isNewUser = false;
+
         this._deviceId = "";
         this._sessionId = "";
-        this._isNewDevice = false;
 
         this._user = null;
-        this._isNewUser = false;
+        this._userStore = null;
+
+        this._lastKeys = new Map();
 
         this.logEvent = async () => { /* ... */ };
 
@@ -117,6 +121,15 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
         this._addDOMMessageHandler("dinobros:dinostruct:dom", this._onDomMessage);
     }
 
+    protected async _getUserStore(): Promise<UserStore>
+    {
+        const userRef = doc(this.firestore, "users", this._user!.uid) as DocumentReference<UserStore, UserStore>;
+        const userDoc = await getDoc(userRef);
+
+        if (!(userDoc.exists())) { throw new DinostructException(DinostructExceptionCode.ImplementationError); }
+        return userDoc.data();
+    }
+
     protected async _initializeIds(): Promise<void>
     {
         let deviceId = await this.runtime.storage.getItem("dinostruct:internal:deviceId") as string;
@@ -142,20 +155,24 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
 
         return new TimedPromise<void>((resolve, reject) =>
         {
-            const unsubscribe = this.firebaseAuth.onAuthStateChanged((user: User | null) =>
+            const unsubscribe = this.firebaseAuth.onAuthStateChanged(async (user: User | null) =>
             {
-                if (user)
+                try
                 {
-                    this._user = user;
+                    if (user)
+                    {
+                        this._user = user;
+                        this._userStore = await this._getUserStore();
 
-                    // eslint-disable-next-line no-console
-                    console.info(`Logged in as an existing anonymous user. SSSH! 🕵️`);
+                        // eslint-disable-next-line no-console
+                        console.info(`Logged in as an existing anonymous user. SSSH! 🕵️`);
+                    }
+
+                    resolve();
                 }
-
-                unsubscribe();
-                resolve();
-
-            }, reject);
+                catch (error) { reject(error); }
+                finally { unsubscribe(); }
+            });
 
         }, this.configs.timeout);
     }
@@ -271,7 +288,16 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
         }
 
         await this._initializeIds();
-        await this._initializeFirebase();
+        await this._initializeFirebase()
+            .catch((error) =>
+            {
+                if (error instanceof TimeoutException)
+                {
+                    throw new DinostructException(DinostructExceptionCode.TimeoutError, error);
+                }
+
+                throw error;
+            });
 
         if (this.configs.enableEventLogging)
         {

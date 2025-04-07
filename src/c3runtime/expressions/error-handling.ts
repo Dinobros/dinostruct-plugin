@@ -3,14 +3,12 @@
 import { DinostructException, DinostructExceptionCode } from "@/exceptions";
 import type Dinostruct from "../instance";
 
-export function ErrorCode(this: Dinostruct): DinostructExceptionCode
+export function ErrorCode(this: Dinostruct): string
 {
-    if ((this.lastError === undefined) || !(this.lastError instanceof DinostructException))
-    {
-        return DinostructExceptionCode.UnknownError;
-    }
+    const lastError = this.lastError;
+    if (lastError instanceof DinostructException) { return lastError.code; }
 
-    return this.lastError.code;
+    return DinostructExceptionCode.UnknownError;
 }
 
 export function XError_Unknown(this: Dinostruct): string

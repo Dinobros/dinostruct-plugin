@@ -5,16 +5,15 @@ export function TriggerOnError(this: Dinostruct, code?: DinostructExceptionCode)
 {
     if (code !== undefined)
     {
-        if (this.lastError instanceof DinostructException)
+        const lastError = this.lastError;
+        if (!(lastError)) { return false; }
+
+        if (lastError instanceof DinostructException)
         {
-            return this.lastError.code === code;
-        }
-        if (this.lastError !== undefined)
-        {
-            return code === DinostructExceptionCode.UnknownError;
+            return lastError.code === code;
         }
 
-        return false;
+        return code === DinostructExceptionCode.UnknownError;
     }
 
     return true;

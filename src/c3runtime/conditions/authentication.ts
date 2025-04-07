@@ -1,23 +1,19 @@
 import type Dinostruct from "../instance";
 
-export function IsUserLoggedIn(this: Dinostruct): boolean
-{
-    return (this._user !== null);
-}
+export function IsUserLoggedIn(this: Dinostruct): boolean { return (this._user !== null); }
 
-export function TriggerOnUserLogin(this: Dinostruct): boolean
+export function TriggerOnUserLogin(this: Dinostruct): boolean { return true; }
+export function TriggerOnUserRefresh(this: Dinostruct): boolean { return true; }
+export function TriggerOnUserLogout(this: Dinostruct): boolean { return true; }
+
+export function TriggerOnSetUserProperty(this: Dinostruct, property?: string): boolean
 {
+    if (property !== undefined) { return this.lastProperty === property; }
+
     return true;
 }
-export function TriggerOnUserLogout(this: Dinostruct): boolean
-{
-    return true;
-}
 
-export function IsNewUser(this: Dinostruct): boolean
-{
-    return this._isNewUser;
-}
+export function IsNewUser(this: Dinostruct): boolean { return this._isNewUser; }
 
 export function IsUserAnonymous(this: Dinostruct): boolean
 {
