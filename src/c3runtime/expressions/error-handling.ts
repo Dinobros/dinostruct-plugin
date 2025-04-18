@@ -1,71 +1,68 @@
 /* eslint-disable camelcase */
 
-import { DinostructException, DinostructExceptionCode } from "@/exceptions";
+import { DinostructExceptionCode } from "@/exceptions";
 import type Dinostruct from "../instance";
 
-export function ErrorCode(this: Dinostruct): string
+export function ErrorCode(this: Dinostruct): DinostructExceptionCode
 {
-    const lastError = this.lastError;
-    if (lastError instanceof DinostructException) { return lastError.code; }
-
-    return DinostructExceptionCode.UnknownError;
+    return this.lastErrorCode;
 }
 
-export function XError_Unknown(this: Dinostruct): string
+export function XError_Unknown(this: Dinostruct): DinostructExceptionCode.UnknownError
 {
     return DinostructExceptionCode.UnknownError;
 }
-export function XError_Implementation(this: Dinostruct): string
+export function XError_Implementation(this: Dinostruct): DinostructExceptionCode.ImplementationError
 {
     return DinostructExceptionCode.ImplementationError;
 }
 
-export function XError_NotInitialized(this: Dinostruct): string
+export function XError_NotInitialized(this: Dinostruct): DinostructExceptionCode.NotInitialized
 {
     return DinostructExceptionCode.NotInitialized;
 }
-export function XError_AlreadyInitialized(this: Dinostruct): string
+export function XError_AlreadyInitialized(this: Dinostruct): DinostructExceptionCode.AlreadyInitialized
 {
     return DinostructExceptionCode.AlreadyInitialized;
 }
 
-export function XError_MissingConfiguration(this: Dinostruct): string
+export function XError_MissingConfiguration(this: Dinostruct): DinostructExceptionCode.MissingConfiguration
 {
     return DinostructExceptionCode.MissingConfiguration;
 }
 
-export function XError_NetworkError(this: Dinostruct): string
+export function XError_NetworkError(this: Dinostruct): DinostructExceptionCode.NetworkError
 {
     return DinostructExceptionCode.NetworkError;
 }
-export function XError_RequestError(this: Dinostruct): string
+export function XError_RequestError(this: Dinostruct): DinostructExceptionCode.RequestError
 {
     return DinostructExceptionCode.RequestError;
 }
-export function XError_TimeoutError(this: Dinostruct): string
+export function XError_TimeoutError(this: Dinostruct): DinostructExceptionCode.TimeoutError
 {
     return DinostructExceptionCode.TimeoutError;
 }
 
-export function XError_NotAuthenticated(this: Dinostruct): string
+export function XError_NotAuthenticated(this: Dinostruct): DinostructExceptionCode.NotAuthenticated
 {
     return DinostructExceptionCode.NotAuthenticated;
 }
-export function XError_NotAuthorized(this: Dinostruct): string
+export function XError_NotAuthorized(this: Dinostruct): DinostructExceptionCode.NotAuthorized
 {
     return DinostructExceptionCode.NotAuthorized;
 }
 
-export function XError_AlreadyAuthenticated(this: Dinostruct): string
+export function XError_AlreadyAuthenticated(this: Dinostruct): DinostructExceptionCode.AlreadyAuthenticated
 {
     return DinostructExceptionCode.AlreadyAuthenticated;
 }
 
-export function XError_UserNotFound(this: Dinostruct): string
+export function XError_UserNotFound(this: Dinostruct): DinostructExceptionCode.UserNotFound
 {
     return DinostructExceptionCode.UserNotFound;
 }
-export function XError_UserAlreadyExists(this: Dinostruct): string
+export function XError_UserAlreadyExists(this: Dinostruct): DinostructExceptionCode.UserAlreadyExists
 {
     return DinostructExceptionCode.UserAlreadyExists;
 }

@@ -157,6 +157,48 @@
             }
           },
 
+          "log-game_start-event": {
+            "list-name": "Log game start event",
+            "display-text": "Log a game start event",
+            "description": "Log a game start event to the database."
+          },
+          "log-game_start-event-payload": {
+            "list-name": "Log game start event with payload",
+            "display-text": "Log a game start event with [i]{0}[/i] as payload to be empty: [i]{1}[/i]",
+            "description": "Log a game start event to the database.",
+            "params": {
+              "payload": {
+                "name": "Payload",
+                "desc": "The payload JSON object to store with the event."
+              },
+              "empty": {
+                "name": "Empty",
+                "desc": "If true, the payload JSON object will be empty after logging."
+              }
+            }
+          },
+
+          "log-game_finish-event": {
+            "list-name": "Log game finish event",
+            "display-text": "Log a game finish event",
+            "description": "Log a game finish event to the database."
+          },
+          "log-game_finish-event-payload": {
+            "list-name": "Log game finish event with payload",
+            "display-text": "Log a game finish event with [i]{0}[/i] as payload to be empty: [i]{1}[/i]",
+            "description": "Log a game finish event to the database.",
+            "params": {
+              "payload": {
+                "name": "Payload",
+                "desc": "The payload JSON object to store with the event."
+              },
+              "empty": {
+                "name": "Empty",
+                "desc": "If true, the payload JSON object will be empty after logging."
+              }
+            }
+          },
+
           "initialize": {
             "list-name": "Initialize",
             "display-text": "Initialize",
@@ -247,6 +289,10 @@
         },
 
         "expressions": {
+          "user-id": {
+            "description": "Get the ID of the user.",
+            "translated-name": "UserID"
+          },
           "user-email_address": {
             "description": "Get the email address of the user.",
             "translated-name": "EmailAddress"
@@ -257,7 +303,7 @@
           },
 
           "user-property-get": {
-            "description": "Get a user property.",
+            "description": "Get a user property value.",
             "translated-name": "GetUserProperty",
             "params": {
               "property": {
@@ -267,8 +313,13 @@
             }
           },
 
+          "user-property": {
+            "description": "Get the last user property that was set.",
+            "translated-name": "UserProperty"
+          },
+
           "error-code": {
-            "description": "Get the last error code.",
+            "description": "Get the last error code that occurred.",
             "translated-name": "ErrorCode"
           },
 

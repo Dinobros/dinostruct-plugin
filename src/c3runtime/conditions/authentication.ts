@@ -8,7 +8,7 @@ export function TriggerOnUserLogout(this: Dinostruct): boolean { return true; }
 
 export function TriggerOnUserPropertySet(this: Dinostruct, property?: string): boolean
 {
-    if (property !== undefined) { return this.lastProperty === property; }
+    if (property !== undefined) { return property === this.lastUserPropertySet; }
 
     return true;
 }

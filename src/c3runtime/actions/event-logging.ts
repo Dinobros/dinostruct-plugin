@@ -19,3 +19,14 @@ export async function LogEvent(this: Dinostruct, type: string, payload?: IObject
 
     await this.logEvent(type, _payload);
 }
+
+export async function LogGameStartEvent(this: Dinostruct, payload?: IObjectClass<IJSONInstance>, empty = false)
+    : Promise<void>
+{
+    await LogEvent.call(this, "game:start", payload, empty);
+}
+export async function LogGameFinishEvent(this: Dinostruct, payload?: IObjectClass<IJSONInstance>, empty = false)
+    : Promise<void>
+{
+    await LogEvent.call(this, "game:finish", payload, empty);
+}

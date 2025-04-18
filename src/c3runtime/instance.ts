@@ -63,15 +63,23 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
 
     protected _lastKeys: Map<string, unknown>;
 
-    public get lastError(): unknown { return this._lastKeys.get("error"); }
-    public get lastProperty(): unknown { return this._lastKeys.get("property"); }
+    public get lastErrorCode(): DinostructExceptionCode
+    {
+        return this._lastKeys.get("error:code") as DinostructExceptionCode;
+    }
+    public get lastUserPropertySet(): string
+    {
+        return this._lastKeys.get("user:property:set") as string;
+    }
 
     public readonly handleError = (error: unknown) =>
     {
         // eslint-disable-next-line no-console
         console.error(error);
 
-        this._lastKeys.set("error", error);
+        const code = (error instanceof DinostructException) ? error.code : DinostructExceptionCode.UnknownError;
+        this._lastKeys.set("error:code", code);
+
         this._trigger(DinostructC3Conditions.TriggerOnError);
     };
 

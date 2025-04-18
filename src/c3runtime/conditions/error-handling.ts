@@ -1,20 +1,8 @@
-import { DinostructException, DinostructExceptionCode } from "@/exceptions";
 import type Dinostruct from "../instance";
 
-export function TriggerOnError(this: Dinostruct, code?: DinostructExceptionCode): boolean
+export function TriggerOnError(this: Dinostruct, code?: string): boolean
 {
-    if (code !== undefined)
-    {
-        const lastError = this.lastError;
-        if (!(lastError)) { return false; }
-
-        if (lastError instanceof DinostructException)
-        {
-            return lastError.code === code;
-        }
-
-        return code === DinostructExceptionCode.UnknownError;
-    }
+    if (code !== undefined) { return code === this.lastErrorCode; }
 
     return true;
 }

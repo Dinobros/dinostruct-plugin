@@ -74,7 +74,7 @@ export async function SetUserProperty(this: Dinostruct, property: string, value:
         const userRef = doc(this.firestore, "users", this._user.uid) as DocumentReference<UserStore, UserStore>;
         await updateDoc(userRef, { payload });
 
-        this._lastKeys.set("property", property);
+        this._lastKeys.set("user:property:set", property);
 
         // eslint-disable-next-line no-console
         console.debug(`User property "${property}" has been stored. Gotcha! 🧠`);

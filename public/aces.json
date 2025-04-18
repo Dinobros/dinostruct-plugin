@@ -79,6 +79,11 @@
     ],
     "expressions": [
       {
+        "id": "user-id",
+        "expressionName": "UserId",
+        "returnType": "string"
+      },
+      {
         "id": "user-email_address",
         "expressionName": "EmailAddress",
         "returnType": "string"
@@ -86,7 +91,8 @@
       {
         "id": "user-username",
         "expressionName": "Username",
-        "returnType": "string"
+        "returnType": "string",
+        "highlight": true
       },
 
       {
@@ -98,6 +104,12 @@
         }],
         "returnType": "any",
         "highlight": true
+      },
+
+      {
+        "id": "user-property",
+        "expressionName": "UserProperty",
+        "returnType": "string"
       }
     ]
   },
@@ -231,6 +243,49 @@
             "defaultValue": false
           }
         ]
+      },
+
+      {
+        "id": "log-game_start-event",
+        "scriptName": "LogGameStartEvent",
+        "highlight": true
+      },
+      {
+        "id": "log-game_start-event-payload",
+        "scriptName": "LogGameStartEvent",
+        "params": [
+          {
+            "id": "payload",
+            "type": "object",
+            "allowedPluginIds": ["Json"]
+          },
+          {
+            "id": "empty",
+            "type": "boolean",
+            "defaultValue": false
+          }
+        ]
+      },
+
+      {
+        "id": "log-game_finish-event",
+        "scriptName": "LogGameFinishEvent"
+      },
+      {
+        "id": "log-game_finish-event-payload",
+        "scriptName": "LogGameFinishEvent",
+        "params": [
+          {
+            "id": "payload",
+            "type": "object",
+            "allowedPluginIds": ["Json"]
+          },
+          {
+            "id": "empty",
+            "type": "boolean",
+            "defaultValue": false
+          }
+        ]
       }
     ]
   },
@@ -244,8 +299,7 @@
     "conditions": [
       {
         "id": "is-initialized",
-        "scriptName": "IsInitialized",
-        "highlight": true
+        "scriptName": "IsInitialized"
       },
       {
         "id": "initialized-trigger",
