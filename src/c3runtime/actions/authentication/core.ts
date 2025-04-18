@@ -12,7 +12,13 @@ export async function createUserStore(
     const userDoc = await getDoc(userRef);
     if (!(userDoc.exists()))
     {
-        return setDoc<UserStore, UserStore>(userRef, { ...payload, timestamp: serverTimestamp() });
+        return setDoc<UserStore, UserStore>(userRef, {
+            ...payload,
+
+            payload: { },
+            timestamp: serverTimestamp(),
+            version: 2
+        });
     }
 
     if (throwIfExists)

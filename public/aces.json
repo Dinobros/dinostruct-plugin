@@ -17,6 +17,20 @@
         "id": "log_out",
         "scriptName": "LogOut",
         "isAsync": true
+      },
+
+      {
+        "id": "user-property-set",
+        "scriptName": "SetUserProperty",
+        "params": [{
+          "id": "property",
+          "type": "string"
+        },
+        {
+          "id": "value",
+          "type": "any"
+        }],
+        "isAsync": true
       }
     ],
     "conditions": [
@@ -39,6 +53,21 @@
       },
 
       {
+        "id": "user-any-property-set-trigger",
+        "scriptName": "TriggerOnUserPropertySet",
+        "isTrigger": true
+      },
+      {
+        "id": "user-specific-property-set-trigger",
+        "scriptName": "TriggerOnUserPropertySet",
+        "params": [{
+          "id": "property",
+          "type": "string"
+        }],
+        "isTrigger": true
+      },
+
+      {
         "id": "is-user-new",
         "scriptName": "IsNewUser"
       },
@@ -46,6 +75,29 @@
       {
         "id": "is-user-anonymous",
         "scriptName": "IsUserAnonymous"
+      }
+    ],
+    "expressions": [
+      {
+        "id": "user-email_address",
+        "expressionName": "EmailAddress",
+        "returnType": "string"
+      },
+      {
+        "id": "user-username",
+        "expressionName": "Username",
+        "returnType": "string"
+      },
+
+      {
+        "id": "user-property-get",
+        "expressionName": "GetUserProperty",
+        "params": [{
+          "id": "property",
+          "type": "string"
+        }],
+        "returnType": "any",
+        "highlight": true
       }
     ]
   },

@@ -110,6 +110,22 @@
             "description": "Log out the user."
           },
 
+          "user-property-set": {
+            "list-name": "Set user property",
+            "display-text": "Set user property [i]{0}[/i] to [i]{1}[/i]",
+            "description": "Set a property for the user.",
+            "params": {
+              "property": {
+                "name": "Property",
+                "desc": "The property to set."
+              },
+              "value": {
+                "name": "Value",
+                "desc": "The value to set the property to."
+              }
+            }
+          },
+
           "log-event": {
             "list-name": "Log event",
             "display-text": "Log a [i]{0}[/i] event",
@@ -166,6 +182,23 @@
             "description": "Triggered when the user logs out."
           },
 
+          "user-any-property-set-trigger": {
+            "list-name": "On any user property set",
+            "display-text": "On any user property set",
+            "description": "Triggered when any user property is set."
+          },
+          "user-specific-property-set-trigger": {
+            "list-name": "On user property set",
+            "display-text": "On user property [i]{0}[/i] set",
+            "description": "Triggered when a specific user property is set.",
+            "params": {
+              "property": {
+                "name": "Property",
+                "desc": "The property to trigger the event for."
+              }
+            }
+          },
+
           "is-user-new": {
             "list-name": "Is a new user",
             "display-text": "Is a new user",
@@ -214,6 +247,26 @@
         },
 
         "expressions": {
+          "user-email_address": {
+            "description": "Get the email address of the user.",
+            "translated-name": "EmailAddress"
+          },
+          "user-username": {
+            "description": "Get the username of the user.",
+            "translated-name": "Username"
+          },
+
+          "user-property-get": {
+            "description": "Get a user property.",
+            "translated-name": "GetUserProperty",
+            "params": {
+              "property": {
+                "name": "Property",
+                "desc": "The property to get."
+              }
+            }
+          },
+
           "error-code": {
             "description": "Get the last error code.",
             "translated-name": "ErrorCode"

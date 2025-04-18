@@ -1,3 +1,5 @@
+import { TimeUnit } from "@byloth/core";
+
 import { signInAnonymously } from "firebase/auth";
 import { doc, DocumentReference, Timestamp, updateDoc } from "firebase/firestore";
 
@@ -15,13 +17,19 @@ export async function LogInAnonymously(this: Dinostruct, username: string): Prom
         if (this._user) { throw new DinostructException(DinostructExceptionCode.AlreadyAuthenticated); }
         const { user } = await signInAnonymously(this.firebaseAuth);
 
-        const payload = { provider: "anonymous", username: username } satisfies AccountPayload;
-        await createUserStore(this.firestore, user.uid, payload, true);
+        const account = { provider: "anonymous", username: username } satisfies AccountPayload;
+        await createUserStore(this.firestore, user.uid, account, true);
 
         this._isNewUser = true;
 
         this._user = user;
-        this._userStore = { ...payload, timestamp: new Timestamp(Date.now(), 0) };
+        this._userStore = {
+            ...account,
+
+            payload: { },
+            timestamp: new Timestamp(Date.now() / TimeUnit.Second, 0),
+            version: 2
+        };
 
         // eslint-disable-next-line no-console
         console.info(`Logged in as a new anonymous user. SSSH! 🕵️`);
@@ -60,16 +68,18 @@ export async function SetUserProperty(this: Dinostruct, property: string, value:
     {
         if (!(this._user)) { throw new DinostructException(DinostructExceptionCode.NotAuthenticated); }
 
+        const payload = this._userStore!.payload;
+        payload[property] = value;
+
         const userRef = doc(this.firestore, "users", this._user.uid) as DocumentReference<UserStore, UserStore>;
-        await updateDoc(userRef, { [property]: value });
+        await updateDoc(userRef, { payload });
 
         this._lastKeys.set("property", property);
-        this._userStore![property] = value;
 
         // eslint-disable-next-line no-console
         console.debug(`User property "${property}" has been stored. Gotcha! 🧠`);
 
-        this._trigger(DinostructC3Conditions.TriggerOnSetUserProperty);
+        this._trigger(DinostructC3Conditions.TriggerOnUserPropertySet);
     }
     catch (error)
     {
