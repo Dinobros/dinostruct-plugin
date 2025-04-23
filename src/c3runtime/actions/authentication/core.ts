@@ -4,6 +4,8 @@ import type { DocumentReference, Firestore } from "firebase/firestore";
 import { UserAlreadyExistsException } from "@/exceptions";
 import type { AccountPayload, UserStore } from "./types";
 
+export const USERS_VERSION = 2;
+
 export async function createUserStore(
     firestore: Firestore, userId: string, payload: AccountPayload, throwIfExists = true
 ): Promise<void>
@@ -17,7 +19,7 @@ export async function createUserStore(
 
             payload: { },
             timestamp: serverTimestamp(),
-            version: 2
+            version: USERS_VERSION
         });
     }
 

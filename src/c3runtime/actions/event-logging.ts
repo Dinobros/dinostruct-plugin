@@ -4,7 +4,6 @@ export async function LogEvent(this: Dinostruct, type: string, payload?: IObject
     : Promise<void>
 {
     let _payload: JSONObject;
-
     if (payload)
     {
         const jsonObj = payload.getFirstPickedInstance()!;
@@ -12,10 +11,7 @@ export async function LogEvent(this: Dinostruct, type: string, payload?: IObject
         _payload = jsonObj.getJsonDataCopy();
         if (empty) { jsonObj.setJsonDataCopy({ }); }
     }
-    else
-    {
-        _payload = { };
-    }
+    else { _payload = { }; }
 
     await this.logEvent(type, _payload);
 }

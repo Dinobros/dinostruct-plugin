@@ -210,9 +210,16 @@
         "id": "error_type-user_already_exists",
         "expressionName": "XError_UserAlreadyExists",
         "returnType": "string"
+      },
+
+      {
+        "id": "error_type-leaderboard_not_found",
+        "expressionName": "XError_LeaderboardNotFound",
+        "returnType": "string"
       }
     ]
   },
+  "leaderboard": { },
   "log-events": {
     "actions": [
       {

@@ -12,12 +12,14 @@ import { v4 as uuid4 } from "uuid";
 
 import { DinostructException, DinostructExceptionCode } from "@/exceptions";
 
-import Configs from "@/models/configs";
-import type { Payload, RawEvent } from "@/models";
-import type { FirestoreRawEvent } from "@/models/firestore";
+import Configs from "@/core/configs";
+import type { Payload } from "@/core/types";
 
-import DinostructC3Conditions from "./conditions";
-import type { UserStore } from "./actions/authentication/types";
+import DinostructC3Conditions from "../conditions";
+import type { UserStore } from "../actions/authentication/types";
+import type { FirestoreRawEvent, RawEvent } from "./types";
+
+export const LOG_EVENT_VERSION = 2;
 
 export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
 {
@@ -282,7 +284,7 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
             ...browser as JSONObject,
 
             ipAddress: ipAddress,
-            version: 2
+            version: LOG_EVENT_VERSION
         };
 
         await this.logEvent("game:init", payload, false);

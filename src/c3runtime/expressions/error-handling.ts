@@ -66,3 +66,7 @@ export function XError_UserAlreadyExists(this: Dinostruct): DinostructExceptionC
 {
     return DinostructExceptionCode.UserAlreadyExists;
 }
+export function XError_LeaderboardNotFound(this: Dinostruct): DinostructExceptionCode.LeaderboardNotFound
+{
+    return DinostructExceptionCode.LeaderboardNotFound;
+}

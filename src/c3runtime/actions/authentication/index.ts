@@ -1,13 +1,14 @@
 import { TimeUnit } from "@byloth/core";
 
 import { signInAnonymously } from "firebase/auth";
-import { doc, DocumentReference, Timestamp, updateDoc } from "firebase/firestore";
+import { doc, Timestamp, updateDoc } from "firebase/firestore";
+import type { DocumentReference } from "firebase/firestore";
 
 import DinostructC3Conditions from "@/c3runtime/conditions";
 import { DinostructException, DinostructExceptionCode } from "@/exceptions";
 
 import type Dinostruct from "../../instance";
-import { createUserStore } from "./core";
+import { createUserStore, USERS_VERSION } from "./core";
 import type { AccountPayload, UserStore } from "./types";
 
 export async function LogInAnonymously(this: Dinostruct, username: string): Promise<void>
@@ -28,7 +29,7 @@ export async function LogInAnonymously(this: Dinostruct, username: string): Prom
 
             payload: { },
             timestamp: new Timestamp(Date.now() / TimeUnit.Second, 0),
-            version: 2
+            version: USERS_VERSION
         };
 
         // eslint-disable-next-line no-console

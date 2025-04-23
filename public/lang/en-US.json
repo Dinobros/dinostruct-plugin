@@ -88,6 +88,7 @@
         "aceCategories": {
           "authentication": "Authentication",
           "error-handling": "Error Handling",
+          "leaderboard": "Leaderboard & Scores",
           "log-events": "Event Logging",
           "management": "Configuration & Management"
         },
@@ -380,6 +381,11 @@
           "error_type-user_already_exists": {
             "description": "A constant value representing an error due to the user already existing.",
             "translated-name": "XError_UserAlreadyExists"
+          },
+
+          "error_type-leaderboard_not_found": {
+            "description": "A constant value representing an error due to the leaderboard not being found.",
+            "translated-name": "XError_LeaderboardNotFound"
           }
         }
       }
