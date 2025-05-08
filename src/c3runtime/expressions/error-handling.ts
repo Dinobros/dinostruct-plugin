@@ -53,6 +53,10 @@ export function XError_NotAuthorized(this: Dinostruct): DinostructExceptionCode.
     return DinostructExceptionCode.NotAuthorized;
 }
 
+export function XError_InvalidCredentials(this: Dinostruct): DinostructExceptionCode.InvalidCredentials
+{
+    return DinostructExceptionCode.InvalidCredentials;
+}
 export function XError_AlreadyAuthenticated(this: Dinostruct): DinostructExceptionCode.AlreadyAuthenticated
 {
     return DinostructExceptionCode.AlreadyAuthenticated;

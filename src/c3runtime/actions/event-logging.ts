@@ -1,7 +1,6 @@
 import type Dinostruct from "../instance";
 
-export async function LogEvent(this: Dinostruct, type: string, payload?: IObjectClass<IJSONInstance>, empty = false)
-    : Promise<void>
+export function LogEvent(this: Dinostruct, type: string, payload?: IObjectClass<IJSONInstance>, empty = false): void
 {
     let _payload: JSONObject;
     if (payload)
@@ -13,16 +12,14 @@ export async function LogEvent(this: Dinostruct, type: string, payload?: IObject
     }
     else { _payload = { }; }
 
-    await this.logEvent(type, _payload);
+    this.logEvent(type, _payload);
 }
 
-export async function LogGameStartEvent(this: Dinostruct, payload?: IObjectClass<IJSONInstance>, empty = false)
-    : Promise<void>
+export function LogGameStartEvent(this: Dinostruct, payload?: IObjectClass<IJSONInstance>, empty = false): void
 {
-    await LogEvent.call(this, "game:start", payload, empty);
+    LogEvent.call(this, "game:start", payload, empty);
 }
-export async function LogGameFinishEvent(this: Dinostruct, payload?: IObjectClass<IJSONInstance>, empty = false)
-    : Promise<void>
+export function LogGameFinishEvent(this: Dinostruct, payload?: IObjectClass<IJSONInstance>, empty = false): void
 {
-    await LogEvent.call(this, "game:finish", payload, empty);
+    LogEvent.call(this, "game:finish", payload, empty);
 }

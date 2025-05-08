@@ -1,14 +1,12 @@
-import { TimeUnit } from "@byloth/core";
-
-import { signInAnonymously } from "firebase/auth";
-import { doc, Timestamp, updateDoc } from "firebase/firestore";
+import { createUserWithEmailAndPassword, signInAnonymously, signInWithEmailAndPassword } from "firebase/auth";
+import { doc, updateDoc } from "firebase/firestore";
 import type { DocumentReference } from "firebase/firestore";
 
 import DinostructC3Conditions from "@/c3runtime/conditions";
 import { DinostructException, DinostructExceptionCode } from "@/exceptions";
 
 import type Dinostruct from "../../instance";
-import { createUserStore, USERS_VERSION } from "./core";
+import { createUserStore, handleAuthError } from "./core";
 import type { AccountPayload, UserStore } from "./types";
 
 export async function LogInAnonymously(this: Dinostruct, username: string): Promise<void>
@@ -16,7 +14,8 @@ export async function LogInAnonymously(this: Dinostruct, username: string): Prom
     try
     {
         if (this._user) { throw new DinostructException(DinostructExceptionCode.AlreadyAuthenticated); }
-        const { user } = await signInAnonymously(this.firebaseAuth);
+        const { user } = await signInAnonymously(this.firebaseAuth)
+            .catch(handleAuthError);
 
         const account = { provider: "anonymous", username: username } satisfies AccountPayload;
         await createUserStore(this.firestore, user.uid, account, true);
@@ -24,16 +23,64 @@ export async function LogInAnonymously(this: Dinostruct, username: string): Prom
         this._isNewUser = true;
 
         this._user = user;
-        this._userStore = {
-            ...account,
-
-            payload: { },
-            timestamp: new Timestamp(Date.now() / TimeUnit.Second, 0),
-            version: USERS_VERSION
-        };
+        this._userStore = await this._getUserStore();
 
         // eslint-disable-next-line no-console
-        console.info(`Logged in as a new anonymous user. SSSH! 🕵️`);
+        console.info(`Logged in as a new anonymous user. Sssh! 🤫`);
+
+        this._trigger(DinostructC3Conditions.TriggerOnUserLogin);
+    }
+    catch (error)
+    {
+        this.handleError(error);
+    }
+}
+export async function LogInWithCredentials(this: Dinostruct, email: string, password: string): Promise<void>
+{
+    try
+    {
+        if (this._user) { throw new DinostructException(DinostructExceptionCode.AlreadyAuthenticated); }
+        const { user } = await signInWithEmailAndPassword(this.firebaseAuth, email, password)
+            .catch(handleAuthError);
+
+        const username = email.split("@")[0];
+        const account = { provider: "email", username: username } satisfies AccountPayload;
+
+        this.logEvent("user:login", account);
+
+        this._user = user;
+        this._userStore = await this._getUserStore();
+
+        // eslint-disable-next-line no-console
+        console.info(`Logged in with email and password. Welcome back! 🥳`);
+
+        this._trigger(DinostructC3Conditions.TriggerOnUserLogin);
+    }
+    catch (error)
+    {
+        this.handleError(error);
+    }
+}
+
+export async function RegisterWithCredentials(this: Dinostruct, email: string, password: string): Promise<void>
+{
+    try
+    {
+        if (this._user) { throw new DinostructException(DinostructExceptionCode.AlreadyAuthenticated); }
+        const { user } = await createUserWithEmailAndPassword(this.firebaseAuth, email, password)
+            .catch(handleAuthError);
+
+        const username = email.split("@")[0];
+        const account = { provider: "email", username: username } satisfies AccountPayload;
+        await createUserStore(this.firestore, user.uid, account, true);
+
+        this._isNewUser = true;
+
+        this._user = user;
+        this._userStore = await this._getUserStore();
+
+        // eslint-disable-next-line no-console
+        console.info(`Registered with email and password. Nice to meet you! 🤝`);
 
         this._trigger(DinostructC3Conditions.TriggerOnUserLogin);
     }
@@ -54,7 +101,7 @@ export async function RefreshUser(this: Dinostruct): Promise<void>
         this._userStore = await this._getUserStore();
 
         // eslint-disable-next-line no-console
-        console.debug(`User data has been refreshed. Chill! 🥶`);
+        console.debug(`User data has been refreshed. Sooo fresh! 🍃`);
 
         this._trigger(DinostructC3Conditions.TriggerOnUserRefresh);
     }
@@ -102,7 +149,7 @@ export async function LogOut(this: Dinostruct): Promise<void>
         this._userStore = null;
 
         // eslint-disable-next-line no-console
-        console.info("The user has been logged out. Bye! 👋");
+        console.info("The user has been logged out. See ya! 👋");
 
         this._trigger(DinostructC3Conditions.TriggerOnUserLogout);
     }

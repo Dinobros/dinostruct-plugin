@@ -105,6 +105,36 @@
               }
             }
           },
+          "log_in-with-credentials": {
+            "list-name": "Log in with credentials",
+            "display-text": "Log in with email: [i]{0}[/i] and password: [i]{1}[/i]",
+            "description": "Log in the user with email and password.",
+            "params": {
+              "email": {
+                "name": "Email",
+                "desc": "The email address of the user."
+              },
+              "password": {
+                "name": "Password",
+                "desc": "The password of the user."
+              }
+            }
+          },
+          "register-with-credentials": {
+            "list-name": "Register with credentials",
+            "display-text": "Register with email: [i]{0}[/i] and password: [i]{1}[/i]",
+            "description": "Register the user with email and password.",
+            "params": {
+              "email": {
+                "name": "Email",
+                "desc": "The email address of the user."
+              },
+              "password": {
+                "name": "Password",
+                "desc": "The password of the user."
+              }
+            }
+          },
           "log_out": {
             "list-name": "Log out",
             "display-text": "Log out",
@@ -369,6 +399,10 @@
             "translated-name": "XError_NotAuthorized"
           },
 
+          "error_type-invalid_credentials": {
+            "description": "A constant value representing an error due to invalid credentials.",
+            "translated-name": "XError_InvalidCredentials"
+          },
           "error_type-already_authenticated": {
             "description": "A constant value representing an error due to the user already being authenticated.",
             "translated-name": "XError_AlreadyAuthenticated"

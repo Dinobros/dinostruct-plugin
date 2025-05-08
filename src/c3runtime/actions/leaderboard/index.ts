@@ -65,7 +65,7 @@ export async function LoadLeaderboard(
         jsonObj.setJsonDataCopy(jsonLeaderboard);
 
         // eslint-disable-next-line no-console
-        console.debug("Leaderboard loaded successfully. Let's go! 🏆");
+        console.debug("Leaderboard loaded successfully. Whose crown is this? 👑");
 
         this._trigger(DinostructC3Conditions.TriggerOnLeaderboardLoaded);
     }
@@ -100,7 +100,7 @@ export async function SaveScore(this: Dinostruct, score: number, payload?: IObje
         });
 
         // eslint-disable-next-line no-console
-        console.info("Score saved successfully. TOP! 🔝");
+        console.info("Score saved successfully. Who's your daddy? 😏");
 
         this._trigger(DinostructC3Conditions.TriggerOnScoreSaved);
     }

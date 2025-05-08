@@ -175,7 +175,7 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
                         this._userStore = await this._getUserStore();
 
                         // eslint-disable-next-line no-console
-                        console.info(`Logged in as an existing anonymous user. SSSH! 🕵️`);
+                        console.info(`Logged in as an existing anonymous user. Sssh! 🤫`);
                     }
 
                     resolve();
@@ -233,7 +233,7 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
                 }
 
                 // eslint-disable-next-line no-console
-                console.debug(`Logged event: "${type}". UHM? 👀`);
+                console.debug(`Logged event: "${type}". Uhm? 👀`);
             };
         }
 
@@ -269,7 +269,7 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
             }
 
             // eslint-disable-next-line no-console
-            console.debug(`Logged event: "${type}". UHM? 👀`);
+            console.debug(`Logged event: "${type}". Uhm? 👀`);
         };
     }
 

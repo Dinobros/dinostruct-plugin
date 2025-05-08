@@ -14,6 +14,36 @@
         "isAsync": true
       },
       {
+        "id": "log_in-with-credentials",
+        "scriptName": "LogInWithCredentials",
+        "params": [
+          {
+            "id": "email",
+            "type": "string"
+          },
+          {
+            "id": "password",
+            "type": "string"
+          }
+        ],
+        "isAsync": true
+      },
+      {
+        "id": "register-with-credentials",
+        "scriptName": "RegisterWithCredentials",
+        "params": [
+          {
+            "id": "email",
+            "type": "string"
+          },
+          {
+            "id": "password",
+            "type": "string"
+          }
+        ],
+        "isAsync": true
+      },
+      {
         "id": "log_out",
         "scriptName": "LogOut",
         "isAsync": true
@@ -195,6 +225,11 @@
         "returnType": "string"
       },
 
+      {
+        "id": "error_type-invalid_credentials",
+        "expressionName": "XError_InvalidCredentials",
+        "returnType": "string"
+      },
       {
         "id": "error_type-already_authenticated",
         "expressionName": "XError_AlreadyAuthenticated",
