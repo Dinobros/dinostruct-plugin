@@ -355,5 +355,56 @@
         "scriptName": "IsNewDevice"
       }
     ]
+  },
+  "polls": {
+    "actions": [
+      {
+        "id": "submit-poll-answer",
+        "scriptName": "SubmitPollAnswer",
+        "params": [
+          {
+            "id": "question_id",
+            "type": "number"
+          },
+          {
+            "id": "answer",
+            "type": "any"
+          }
+        ],
+        "highlight": true,
+        "isAsync": true
+      },
+      {
+        "id": "submit-poll-answer-payload",
+        "scriptName": "SubmitPollAnswer",
+        "params": [
+          {
+            "id": "question_id",
+            "type": "number"
+          },
+          {
+            "id": "answer",
+            "type": "any"
+          },
+          {
+            "id": "payload",
+            "type": "object",
+            "allowedPluginIds": ["Json"]
+          },
+          {
+            "id": "empty",
+            "type": "boolean",
+            "defaultValue": false
+          }
+        ],
+        "isAsync": true
+      }
+    ],
+    "conditions": [{
+      "id": "poll-answer-submitted-trigger",
+      "scriptName": "TriggerOnPollAnswerSubmitted",
+      "highlight": true,
+      "isTrigger": true
+    }]
   }
 }

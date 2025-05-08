@@ -90,13 +90,14 @@
           "error-handling": "Error Handling",
           "leaderboard": "Leaderboard & Scores",
           "log-events": "Event Logging",
-          "management": "Configuration & Management"
+          "management": "Configuration & Management",
+          "polls": "Polls & Surveys"
         },
 
         "actions": {
           "log_in-anonymously": {
             "list-name": "Log in anonymously",
-            "display-text": "Log in anonymously with username: [i]{0}[/i]",
+            "display-text": "Log in anonymously with username [i]{0}[/i]",
             "description": "Log in the user anonymously.",
             "params": {
               "username": {
@@ -107,7 +108,7 @@
           },
           "log_in-with-credentials": {
             "list-name": "Log in with credentials",
-            "display-text": "Log in with email: [i]{0}[/i] and password: [i]{1}[/i]",
+            "display-text": "Log in with email [i]{0}[/i] and password [i]{1}[/i]",
             "description": "Log in the user with email and password.",
             "params": {
               "email": {
@@ -122,7 +123,7 @@
           },
           "register-with-credentials": {
             "list-name": "Register with credentials",
-            "display-text": "Register with email: [i]{0}[/i] and password: [i]{1}[/i]",
+            "display-text": "Register with email [i]{0}[/i] and password [i]{1}[/i]",
             "description": "Register the user with email and password.",
             "params": {
               "email": {
@@ -234,6 +235,45 @@
             "list-name": "Initialize",
             "display-text": "Initialize",
             "description": "Initialize the plugin."
+          },
+
+          "submit-poll-answer": {
+            "list-name": "Submit poll answer",
+            "display-text": "Submit poll answer to question ID [i]{0}[/i] with value [i]{1}[/i]",
+            "description": "Submit an answer to a question.",
+            "params": {
+              "question_id": {
+                "name": "Question ID",
+                "desc": "The ID of the question to submit the answer for."
+              },
+              "answer": {
+                "name": "Answer",
+                "desc": "The answer to submit."
+              }
+            }
+          },
+          "submit-poll-answer-payload": {
+            "list-name": "Submit poll answer with payload",
+            "display-text": "Submit poll answer to question ID [i]{0}[/i] with value [i]{1}[/i] and [i]{2}[/i] as payload to be empty: [i]{3}[/i]",
+            "description": "Submit an answer to a question.",
+            "params": {
+              "question_id": {
+                "name": "Question ID",
+                "desc": "The ID of the question to submit the answer for."
+              },
+              "answer": {
+                "name": "Answer",
+                "desc": "The answer to submit."
+              },
+              "payload": {
+                "name": "Payload",
+                "desc": "The payload JSON object to store with the event."
+              },
+              "empty": {
+                "name": "Empty",
+                "desc": "If true, the payload JSON object will be empty after logging."
+              }
+            }
           }
         },
 
@@ -316,6 +356,12 @@
             "list-name": "Is a new device",
             "display-text": "Is a new device",
             "description": "A condition that's true if this is the first time the device launches the game."
+          },
+
+          "poll-answer-submitted-trigger": {
+            "list-name": "On poll answer submitted",
+            "display-text": "On poll answer submitted",
+            "description": "Triggered when a poll answer is submitted."
           }
         },
 

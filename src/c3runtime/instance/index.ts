@@ -229,7 +229,7 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
                 catch (error)
                 {
                     // eslint-disable-next-line no-console
-                    return console.error(new DinostructException(DinostructExceptionCode.NetworkError, error));
+                    return console.error(error);
                 }
 
                 // eslint-disable-next-line no-console
@@ -265,7 +265,7 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
             catch (error)
             {
                 // eslint-disable-next-line no-console
-                return console.error(new DinostructException(DinostructExceptionCode.NotAuthorized, error));
+                return console.error(error);
             }
 
             // eslint-disable-next-line no-console

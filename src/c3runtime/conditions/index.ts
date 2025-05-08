@@ -2,6 +2,7 @@ import * as Authentication from "./authentication";
 import * as ErrorHandling from "./error-handling";
 import * as Leaderboard from "./leaderboard";
 import * as Management from "./management";
+import * as Polls from "./polls";
 
 import type { Condition } from "./types";
 
@@ -9,7 +10,8 @@ const DinostructC3Conditions = {
     ...Authentication,
     ...ErrorHandling,
     ...Leaderboard,
-    ...Management
+    ...Management,
+    ...Polls
 
 } satisfies Record<string, Condition>;
 
