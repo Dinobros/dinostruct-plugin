@@ -16,15 +16,15 @@ import { DinostructException, DinostructExceptionCode } from "@/exceptions";
 import Configs from "@/core/configs";
 import type { Payload } from "@/core/types";
 
+import type { UserRecord } from "../actions/authentication/types";
 import DinostructC3Conditions from "../conditions";
 import type { FirestoreRawEvent, RawEvent } from "./types";
-import type { UserRecord } from "../actions/authentication/types";
 
 export const LOG_EVENT_VERSION = 2;
 
 export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
 {
-    public static readonly Version = "0.2.0";
+    public static readonly Version = "0.3.1";
 
     protected _initialized: boolean;
 

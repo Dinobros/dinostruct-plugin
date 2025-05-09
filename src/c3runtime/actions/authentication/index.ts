@@ -46,9 +46,7 @@ export async function LogInWithCredentials(this: Dinostruct, emailAddress: strin
         // eslint-disable-next-line no-console
         console.info(`Logged in with email and password. Welcome back! 🥳`);
 
-        const account = { provider: "emailAddress" } satisfies AccountPayload;
-        this.logEvent("user:login", account);
-
+        this.logEvent("user:login", { provider: "emailAddress" });
         this._trigger(DinostructC3Conditions.TriggerOnUserLogin);
     }
     catch (error)

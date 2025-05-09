@@ -10,7 +10,7 @@ export async function saveScore(firestore: Firestore, userId: string, score: Sco
 {
     const { username, level, value, ...payload } = score;
 
-    const rawScoresRef = collection(firestore, "rawScore") as CollectionReference<RawScore, RawScore>;
+    const rawScoresRef = collection(firestore, "rawScores") as CollectionReference<RawScore, RawScore>;
     await addDoc(rawScoresRef, {
         userId: userId,
         username: username!,
