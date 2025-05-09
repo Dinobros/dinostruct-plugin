@@ -22,7 +22,7 @@ export function EmailAddress(this: Dinostruct): string
     {
         if (!(this._user)) { throw new DinostructException(DinostructExceptionCode.NotAuthenticated); }
 
-        return this._userStore!.email ?? "";
+        return this._emailAddress ?? "";
     }
     catch (error)
     {
@@ -37,7 +37,7 @@ export function Username(this: Dinostruct): string
     {
         if (!(this._user)) { throw new DinostructException(DinostructExceptionCode.NotAuthenticated); }
 
-        return this._userStore!.username ?? "";
+        return this._username ?? "";
     }
     catch (error)
     {
@@ -53,7 +53,7 @@ export function GetUserProperty(this: Dinostruct, property: string): number | st
     {
         if (!(this._user)) { throw new DinostructException(DinostructExceptionCode.NotAuthenticated); }
 
-        return this._userStore!.payload[property] as number | string;
+        return this._userProperties[property] ?? 0;
     }
     catch (error)
     {

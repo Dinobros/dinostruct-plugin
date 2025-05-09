@@ -1,15 +1,15 @@
 import { createUserWithEmailAndPassword, signInAnonymously, signInWithEmailAndPassword } from "firebase/auth";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import type { DocumentReference } from "firebase/firestore";
 
 import DinostructC3Conditions from "@/c3runtime/conditions";
 import { DinostructException, DinostructExceptionCode } from "@/exceptions";
 
 import type Dinostruct from "../../instance";
-import { createUserStore, handleAuthError } from "./core";
-import type { AccountPayload, UserStore } from "./types";
+import { createUserRecord, handleAuthError, USER_PROPERTIES_VERSION } from "./core";
+import type { AccountPayload, UserProperty, UserRecord } from "./types";
 
-export async function LogInAnonymously(this: Dinostruct, username: string): Promise<void>
+export async function LogInAnonymously(this: Dinostruct): Promise<void>
 {
     try
     {
@@ -17,13 +17,11 @@ export async function LogInAnonymously(this: Dinostruct, username: string): Prom
         const { user } = await signInAnonymously(this.firebaseAuth)
             .catch(handleAuthError);
 
-        const account = { provider: "anonymous", username: username } satisfies AccountPayload;
-        await createUserStore(this.firestore, user.uid, account, true);
-
         this._isNewUser = true;
-
         this._user = user;
-        this._userStore = await this._getUserStore();
+
+        const account = { provider: "anonymous", username: this.username } satisfies AccountPayload;
+        await createUserRecord(this.firestore, user.uid, account, true);
 
         // eslint-disable-next-line no-console
         console.info(`Logged in as a new anonymous user. Sssh! 🤫`);
@@ -35,24 +33,21 @@ export async function LogInAnonymously(this: Dinostruct, username: string): Prom
         this.handleError(error);
     }
 }
-export async function LogInWithCredentials(this: Dinostruct, email: string, password: string): Promise<void>
+export async function LogInWithCredentials(this: Dinostruct, emailAddress: string, password: string): Promise<void>
 {
     try
     {
         if (this._user) { throw new DinostructException(DinostructExceptionCode.AlreadyAuthenticated); }
-        const { user } = await signInWithEmailAndPassword(this.firebaseAuth, email, password)
+        const { user } = await signInWithEmailAndPassword(this.firebaseAuth, emailAddress, password)
             .catch(handleAuthError);
 
-        const username = email.split("@")[0];
-        const account = { provider: "email", username: username } satisfies AccountPayload;
-
-        this.logEvent("user:login", account);
-
-        this._user = user;
-        this._userStore = await this._getUserStore();
+        await this.refreshUser(user);
 
         // eslint-disable-next-line no-console
         console.info(`Logged in with email and password. Welcome back! 🥳`);
+
+        const account = { provider: "emailAddress" } satisfies AccountPayload;
+        this.logEvent("user:login", account);
 
         this._trigger(DinostructC3Conditions.TriggerOnUserLogin);
     }
@@ -62,22 +57,26 @@ export async function LogInWithCredentials(this: Dinostruct, email: string, pass
     }
 }
 
-export async function RegisterWithCredentials(this: Dinostruct, email: string, password: string): Promise<void>
+export async function RegisterWithCredentials(this: Dinostruct, emailAddress: string, password: string): Promise<void>
 {
     try
     {
         if (this._user) { throw new DinostructException(DinostructExceptionCode.AlreadyAuthenticated); }
-        const { user } = await createUserWithEmailAndPassword(this.firebaseAuth, email, password)
+        const { user } = await createUserWithEmailAndPassword(this.firebaseAuth, emailAddress, password)
             .catch(handleAuthError);
 
-        const username = email.split("@")[0];
-        const account = { provider: "email", username: username } satisfies AccountPayload;
-        await createUserStore(this.firestore, user.uid, account, true);
-
         this._isNewUser = true;
-
         this._user = user;
-        this._userStore = await this._getUserStore();
+
+        const username = emailAddress.split("@")[0];
+        const account = {
+            provider: "emailAddress",
+            emailAddress: emailAddress,
+            username: username
+
+        } satisfies AccountPayload;
+
+        await createUserRecord(this.firestore, user.uid, account, true);
 
         // eslint-disable-next-line no-console
         console.info(`Registered with email and password. Nice to meet you! 🤝`);
@@ -97,8 +96,7 @@ export async function RefreshUser(this: Dinostruct): Promise<void>
         const user = this.firebaseAuth.currentUser;
         if (!(user)) { throw new DinostructException(DinostructExceptionCode.NotAuthenticated); }
 
-        this._user = user;
-        this._userStore = await this._getUserStore();
+        await this.refreshUser(user);
 
         // eslint-disable-next-line no-console
         console.debug(`User data has been refreshed. Sooo fresh! 🍃`);
@@ -110,22 +108,69 @@ export async function RefreshUser(this: Dinostruct): Promise<void>
         this.handleError(error);
     }
 }
+
+export async function SetUsername(this: Dinostruct, username: string): Promise<void>
+{
+    try
+    {
+        if (!(this._user)) { throw new DinostructException(DinostructExceptionCode.NotAuthenticated); }
+
+        const userRef = doc(this.firestore, "users", this._user.uid) as DocumentReference<UserRecord, UserRecord>;
+        await updateDoc(userRef, { username });
+
+        this._username = username;
+
+        // eslint-disable-next-line no-console
+        console.debug(`The username has been set to "${username}". Noice! 😌`);
+
+        this._trigger(DinostructC3Conditions.TriggerOnUserPropertySet);
+    }
+    catch (error)
+    {
+        this.handleError(error);
+    }
+}
+export async function SetEmail(this: Dinostruct, emailAddress: string): Promise<void>
+{
+    try
+    {
+        if (!(this._user)) { throw new DinostructException(DinostructExceptionCode.NotAuthenticated); }
+
+        const userRef = doc(this.firestore, "users", this._user.uid) as DocumentReference<UserRecord, UserRecord>;
+        await updateDoc(userRef, { emailAddress });
+
+        this._emailAddress = emailAddress;
+
+        // eslint-disable-next-line no-console
+        console.debug(`The email address has been set to "${emailAddress}". Sweet! 🍭`);
+
+        this._trigger(DinostructC3Conditions.TriggerOnUserPropertySet);
+    }
+    catch (error)
+    {
+        this.handleError(error);
+    }
+}
+
 export async function SetUserProperty(this: Dinostruct, property: string, value: number | string): Promise<void>
 {
     try
     {
         if (!(this._user)) { throw new DinostructException(DinostructExceptionCode.NotAuthenticated); }
 
-        const payload = this._userStore!.payload;
-        payload[property] = value;
+        const userPropertyRef = doc(this.firestore, "users", this._user.uid, "properties", property) as
+            DocumentReference<UserProperty, UserProperty>;
 
-        const userRef = doc(this.firestore, "users", this._user.uid) as DocumentReference<UserStore, UserStore>;
-        await updateDoc(userRef, { payload });
+        await setDoc(userPropertyRef, {
+            value: value,
+            timestamp: serverTimestamp(),
+            version: USER_PROPERTIES_VERSION
+        });
 
         this._lastKeys.set("user:property:set", property);
 
         // eslint-disable-next-line no-console
-        console.debug(`User property "${property}" has been stored. Gotcha! 🧠`);
+        console.debug(`The user property "${property}" has been set. Gotcha! 🧠`);
 
         this._trigger(DinostructC3Conditions.TriggerOnUserPropertySet);
     }
@@ -146,7 +191,7 @@ export async function LogOut(this: Dinostruct): Promise<void>
         this._isNewUser = false;
 
         this._user = null;
-        this._userStore = null;
+        this._userProperties = { };
 
         // eslint-disable-next-line no-console
         console.info("The user has been logged out. See ya! 👋");

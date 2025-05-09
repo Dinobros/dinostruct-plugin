@@ -3,7 +3,7 @@ import { DocumentReference } from "firebase/firestore";
 
 import DinostructC3Conditions from "@/c3runtime/conditions";
 import { DinostructException, DinostructExceptionCode } from "@/exceptions";
-import { computeUsername, formatTimestamp } from "@/core/utils";
+import { formatTimestamp } from "@/core/utils";
 
 import type Dinostruct from "../../instance";
 import { saveScore } from "./core";
@@ -29,8 +29,6 @@ export async function LoadLeaderboard(
         const leaderboard = leaderboardDoc.data();
 
         const userId = this._user.uid;
-        const username = computeUsername(userId, this._userStore!.username);
-
         const jsonLeaderboard: JsonLeaderboard = {
             lastUpdate: formatTimestamp(leaderboard.lastUpdate),
             scores: leaderboard.scores.map((score) => ({
@@ -40,7 +38,7 @@ export async function LoadLeaderboard(
             })),
             user: {
                 userId: userId,
-                username: username,
+                username: this.username,
                 rank: -1,
                 value: 0,
                 payload: { },
@@ -95,7 +93,7 @@ export async function SaveScore(this: Dinostruct, score: number, payload?: IObje
         await saveScore(this.firestore, this._user.uid, {
             ..._payload,
 
-            username: this._userStore!.username,
+            username: this.username,
             value: score
         });
 

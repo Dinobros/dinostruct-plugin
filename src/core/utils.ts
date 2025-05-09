@@ -1,17 +1,4 @@
-import { hash as computeHash } from "@byloth/core";
 import type { DateTimeFormatOptions } from "./types";
-
-export function computeUsername(userId: string, username: string | undefined, hashLimit = 5): string
-{
-    if (!(username))
-    {
-        const hash = `${Math.abs(computeHash(userId))}`.substring(0, hashLimit);
-
-        return `User #${hash}`;
-    }
-
-    return username;
-}
 
 export function formatDatetime(datetime?: Date)
 {

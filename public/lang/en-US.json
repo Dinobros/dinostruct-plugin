@@ -97,22 +97,16 @@
         "actions": {
           "log_in-anonymously": {
             "list-name": "Log in anonymously",
-            "display-text": "Log in anonymously with username [i]{0}[/i]",
-            "description": "Log in the user anonymously.",
-            "params": {
-              "username": {
-                "name": "Username",
-                "desc": "The username to be used by the anonymous user."
-              }
-            }
+            "display-text": "Log in anonymously",
+            "description": "Log in the user anonymously."
           },
-          "log_in-with-credentials": {
+          "log_in-credentials": {
             "list-name": "Log in with credentials",
-            "display-text": "Log in with email [i]{0}[/i] and password [i]{1}[/i]",
-            "description": "Log in the user with email and password.",
+            "display-text": "Log in with email address [i]{0}[/i] and password [i]{1}[/i]",
+            "description": "Log in the user with email address and password.",
             "params": {
-              "email": {
-                "name": "Email",
+              "email_address": {
+                "name": "Email Address",
                 "desc": "The email address of the user."
               },
               "password": {
@@ -121,13 +115,13 @@
               }
             }
           },
-          "register-with-credentials": {
+          "register-credentials": {
             "list-name": "Register with credentials",
-            "display-text": "Register with email [i]{0}[/i] and password [i]{1}[/i]",
-            "description": "Register the user with email and password.",
+            "display-text": "Register with email address [i]{0}[/i] and password [i]{1}[/i]",
+            "description": "Register the user with email address and password.",
             "params": {
-              "email": {
-                "name": "Email",
+              "email_address": {
+                "name": "Email Address",
                 "desc": "The email address of the user."
               },
               "password": {
@@ -142,6 +136,29 @@
             "description": "Log out the user."
           },
 
+          "user-username-set": {
+            "list-name": "Set username",
+            "display-text": "Set username to [i]{0}[/i]",
+            "description": "Set the username for the user.",
+            "params": {
+              "username": {
+                "name": "Username",
+                "desc": "The username to set."
+              }
+            }
+          },
+          "user-email_address-set": {
+            "list-name": "Set email address",
+            "display-text": "Set email address to [i]{0}[/i]",
+            "description": "Set the email address for the user.",
+            "params": {
+              "email_address": {
+                "name": "Email Address",
+                "desc": "The email address to set."
+              }
+            }
+          },
+
           "user-property-set": {
             "list-name": "Set user property",
             "display-text": "Set user property [i]{0}[/i] to [i]{1}[/i]",
@@ -154,6 +171,63 @@
               "value": {
                 "name": "Value",
                 "desc": "The value to set the property to."
+              }
+            }
+          },
+
+          "load-leaderboard": {
+            "list-name": "Load leaderboard",
+            "display-text": "Load leaderboard on [i]{0}[/i]",
+            "description": "Load the leaderboard to a given JSON object.",
+            "params": {
+              "json_ref": {
+                "name": "JSON Reference",
+                "desc": "The JSON object to load the leaderboard into."
+              }
+            }
+          },
+          "load-level-leaderboard": {
+            "list-name": "Load leaderboard for level",
+            "display-text": "Load leaderboard on [i]{0}[/i] for level [i]{1}[/i]",
+            "description": "Load the leaderboard to a given JSON object for a specific level.",
+            "params": {
+              "json_ref": {
+                "name": "JSON Reference",
+                "desc": "The JSON object to load the leaderboard into."
+              },
+              "level": {
+                "name": "Level",
+                "desc": "The level to load the leaderboard for."
+              }
+            }
+          },
+          "save-score": {
+            "list-name": "Save score",
+            "display-text": "Save score with value [i]{0}[/i]",
+            "description": "Save a score to the leaderboard.",
+            "params": {
+              "score": {
+                "name": "Score",
+                "desc": "The score value to save."
+              }
+            }
+          },
+          "save-score-payload": {
+            "list-name": "Save score with payload",
+            "display-text": "Save score with value [i]{0}[/i] and [i]{1}[/i] as payload to be empty: [i]{2}[/i]",
+            "description": "Save a score to the leaderboard with a payload.",
+            "params": {
+              "score": {
+                "name": "Score",
+                "desc": "The score value to save."
+              },
+              "payload": {
+                "name": "Payload",
+                "desc": "The payload JSON object to store with the score."
+              },
+              "empty": {
+                "name": "Empty",
+                "desc": "If true, the payload JSON object will be empty after saving."
               }
             }
           },
@@ -341,6 +415,17 @@
             }
           },
 
+          "leaderboard-loaded-trigger": {
+            "list-name": "On leaderboard loaded",
+            "display-text": "On leaderboard loaded",
+            "description": "Triggered when the leaderboard is loaded."
+          },
+          "score-saved-trigger": {
+            "list-name": "On score saved",
+            "display-text": "On score saved",
+            "description": "Triggered when a score is saved."
+          },
+
           "is-initialized": {
             "list-name": "Is initialized",
             "display-text": "Is initialized",
@@ -370,6 +455,7 @@
             "description": "Get the ID of the user.",
             "translated-name": "UserID"
           },
+
           "user-email_address": {
             "description": "Get the email address of the user.",
             "translated-name": "EmailAddress"

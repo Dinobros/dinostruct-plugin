@@ -6,19 +6,15 @@
       {
         "id": "log_in-anonymously",
         "scriptName": "LogInAnonymously",
-        "params": [{
-          "id": "username",
-          "type": "string"
-        }],
         "highlight": true,
         "isAsync": true
       },
       {
-        "id": "log_in-with-credentials",
+        "id": "log_in-credentials",
         "scriptName": "LogInWithCredentials",
         "params": [
           {
-            "id": "email",
+            "id": "email_address",
             "type": "string"
           },
           {
@@ -29,11 +25,11 @@
         "isAsync": true
       },
       {
-        "id": "register-with-credentials",
+        "id": "register-credentials",
         "scriptName": "RegisterWithCredentials",
         "params": [
           {
-            "id": "email",
+            "id": "email_address",
             "type": "string"
           },
           {
@@ -46,6 +42,25 @@
       {
         "id": "log_out",
         "scriptName": "LogOut",
+        "isAsync": true
+      },
+
+      {
+        "id": "user-username-set",
+        "scriptName": "SetUsername",
+        "params": [{
+          "id": "username",
+          "type": "string"
+        }],
+        "isAsync": true
+      },
+      {
+        "id": "user-email_address-set",
+        "scriptName": "SetEmail",
+        "params": [{
+          "id": "email_address",
+          "type": "string"
+        }],
         "isAsync": true
       },
 
@@ -254,7 +269,85 @@
       }
     ]
   },
-  "leaderboard": { },
+  "leaderboard": {
+    "actions": [
+      {
+        "id": "load-leaderboard",
+        "scriptName": "LoadLeaderboard",
+        "params": [
+          {
+            "id": "json_ref",
+            "type": "object",
+            "allowedPluginIds": ["Json"]
+          }
+        ],
+        "isAsync": true
+      },
+      {
+        "id": "load-level-leaderboard",
+        "scriptName": "LoadLeaderboard",
+        "params": [
+          {
+            "id": "json_ref",
+            "type": "object",
+            "allowedPluginIds": ["Json"]
+          },
+          {
+            "id": "level",
+            "type": "string"
+          }
+        ],
+        "isAsync": true
+      },
+
+      {
+        "id": "save-score",
+        "scriptName": "SaveScore",
+        "params": [
+          {
+            "id": "score",
+            "type": "number"
+          }
+        ],
+        "highlight": true,
+        "isAsync": true
+      },
+      {
+        "id": "save-score-payload",
+        "scriptName": "SaveScore",
+        "params": [
+          {
+            "id": "score",
+            "type": "number"
+          },
+          {
+            "id": "payload",
+            "type": "object",
+            "allowedPluginIds": ["Json"]
+          },
+          {
+            "id": "empty",
+            "type": "boolean",
+            "defaultValue": false
+          }
+        ],
+        "isAsync": true
+      }
+    ],
+    "conditions": [
+      {
+        "id": "leaderboard-loaded-trigger",
+        "scriptName": "TriggerOnLeaderboardLoaded",
+        "highlight": true,
+        "isTrigger": true
+      },
+      {
+        "id": "score-saved-trigger",
+        "scriptName": "TriggerOnScoreSaved",
+        "isTrigger": true
+      }
+    ]
+  },
   "log-events": {
     "actions": [
       {

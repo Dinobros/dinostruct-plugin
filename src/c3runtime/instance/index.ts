@@ -1,11 +1,12 @@
-import { TimedPromise, TimeoutException } from "@byloth/core";
+import { hash as computeHash, TimedPromise, TimeoutException } from "@byloth/core";
+
 import { initializeApp } from "firebase/app";
 import type { FirebaseApp } from "firebase/app";
 
 import { getAuth } from "firebase/auth";
 import type { Auth, User } from "firebase/auth";
 
-import { addDoc, collection, doc, getDoc, getFirestore, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, getDocs, getFirestore, serverTimestamp } from "firebase/firestore";
 import type { DocumentReference, Firestore } from "firebase/firestore";
 
 import { v4 as uuid4 } from "uuid";
@@ -16,14 +17,14 @@ import Configs from "@/core/configs";
 import type { Payload } from "@/core/types";
 
 import DinostructC3Conditions from "../conditions";
-import type { UserStore } from "../actions/authentication/types";
 import type { FirestoreRawEvent, RawEvent } from "./types";
+import type { UserRecord } from "../actions/authentication/types";
 
 export const LOG_EVENT_VERSION = 2;
 
 export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
 {
-    public static readonly Version = "0.1.0";
+    public static readonly Version = "0.2.0";
 
     protected _initialized: boolean;
 
@@ -61,7 +62,29 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
     public get firestore(): Firestore { throw new DinostructException(DinostructExceptionCode.NotInitialized); }
 
     protected _user: User | null;
-    protected _userStore: UserStore | null;
+    protected _username: string | null;
+    protected _emailAddress: string | null;
+    protected _userProperties: Record<string, number | string>;
+
+    protected get username(): string
+    {
+        if (this._username) { return this._username; }
+
+        let hash: string;
+        let name: string;
+
+        if (this._user)
+        {
+            hash = `${Math.abs(computeHash(this._user.uid))}`.substring(0, 5);
+            name = "User";
+        }
+        {
+            hash = `${Math.abs(computeHash(this._deviceId))}`;
+            name = "Guest";
+        }
+
+        return `${name} #${hash}`;
+    }
 
     protected _lastKeys: Map<string, unknown>;
 
@@ -100,7 +123,9 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
         this._sessionId = "";
 
         this._user = null;
-        this._userStore = null;
+        this._username = null;
+        this._emailAddress = null;
+        this._userProperties = { };
 
         this._lastKeys = new Map();
 
@@ -129,15 +154,6 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
         }
 
         this._addDOMMessageHandler("dinobros:dinostruct:dom", this._onDomMessage);
-    }
-
-    protected async _getUserStore(): Promise<UserStore>
-    {
-        const userRef = doc(this.firestore, "users", this._user!.uid) as DocumentReference<UserStore, UserStore>;
-        const userDoc = await getDoc(userRef);
-
-        if (!(userDoc.exists())) { throw new DinostructException(DinostructExceptionCode.ImplementationError); }
-        return userDoc.data();
     }
 
     protected async _initializeIds(): Promise<void>
@@ -171,8 +187,7 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
                 {
                     if (user)
                     {
-                        this._user = user;
-                        this._userStore = await this._getUserStore();
+                        await this.refreshUser(user);
 
                         // eslint-disable-next-line no-console
                         console.info(`Logged in as an existing anonymous user. Sssh! 🤫`);
@@ -317,5 +332,48 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
         }
 
         this._initialized = true;
+    }
+
+    protected async _getUserRecord(): Promise<UserRecord>
+    {
+        const userRef = doc(this.firestore, "users", this._user!.uid) as DocumentReference<UserRecord, UserRecord>;
+        const userDoc = await getDoc(userRef);
+
+        if (!(userDoc.exists())) { throw new DinostructException(DinostructExceptionCode.ImplementationError); }
+        return userDoc.data();
+    }
+    protected async _getUserProperties(): Promise<Record<string, number | string>>
+    {
+        const userPropertiesRef = collection(this.firestore, "users", this._user!.uid, "properties");
+        const userPropertiesDocs = await getDocs(userPropertiesRef);
+
+        const userProperties: Record<string, number | string> = { };
+        for (const userPropertyDoc of userPropertiesDocs.docs)
+        {
+            const userProperty = userPropertyDoc.data();
+            if (userProperty)
+            {
+                userProperties[userPropertyDoc.id] = userProperty.value;
+            }
+        }
+
+        return userProperties;
+    }
+
+    public async refreshUser(user: User): Promise<void>
+    {
+        this._user = user;
+
+        await Promise.all([
+            this._getUserRecord()
+                .then(({ username, emailAddress }) =>
+                {
+                    this._username = username ?? null;
+                    this._emailAddress = emailAddress ?? null;
+                }),
+
+            this._getUserProperties()
+                .then((userProperties) => { this._userProperties = userProperties; })
+        ]);
     }
 }

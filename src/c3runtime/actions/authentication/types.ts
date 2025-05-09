@@ -2,17 +2,22 @@ import type { Timestamp } from "firebase/firestore";
 
 export interface UserPayload
 {
-    email?: string;
+    emailAddress?: string;
     username?: string;
 }
 export interface AccountPayload extends UserPayload
 {
-    provider: "anonymous" | "email";
+    provider: "anonymous" | "emailAddress";
+}
+export interface UserRecord extends AccountPayload
+{
+    timestamp: Timestamp;
+    version: number;
 }
 
-export interface UserStore extends AccountPayload
+export interface UserProperty<T extends number | string = number | string>
 {
-    payload: Record<string, Partial<unknown>>;
+    value: T;
     timestamp: Timestamp;
     version: number;
 }
