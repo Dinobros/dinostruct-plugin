@@ -121,14 +121,14 @@ export async function SetUsername(this: Dinostruct, username: string): Promise<v
         // eslint-disable-next-line no-console
         console.debug(`The username has been set to "${username}". Noice! 😌`);
 
-        this._trigger(DinostructC3Conditions.TriggerOnUserPropertySet);
+        this._trigger(DinostructC3Conditions.TriggerOnUsernameSet);
     }
     catch (error)
     {
         this.handleError(error);
     }
 }
-export async function SetEmail(this: Dinostruct, emailAddress: string): Promise<void>
+export async function SetEmailAddress(this: Dinostruct, emailAddress: string): Promise<void>
 {
     try
     {
@@ -142,7 +142,7 @@ export async function SetEmail(this: Dinostruct, emailAddress: string): Promise<
         // eslint-disable-next-line no-console
         console.debug(`The email address has been set to "${emailAddress}". Sweet! 🍭`);
 
-        this._trigger(DinostructC3Conditions.TriggerOnUserPropertySet);
+        this._trigger(DinostructC3Conditions.TriggerOnEmailAddressSet);
     }
     catch (error)
     {
@@ -165,6 +165,7 @@ export async function SetUserProperty(this: Dinostruct, property: string, value:
             version: USER_PROPERTIES_VERSION
         });
 
+        this._userProperties[property] = value;
         this._lastKeys.set("user:property:set", property);
 
         // eslint-disable-next-line no-console

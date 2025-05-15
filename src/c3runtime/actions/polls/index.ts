@@ -37,6 +37,9 @@ export async function SubmitPollAnswer(
             version: POLL_ANSWERS_VERSION
         });
 
+        // eslint-disable-next-line no-console
+        console.info("Poll answer submitted successfully. What a great choice! 🗳️");
+
         this._trigger(DinostructC3Conditions.TriggerOnPollAnswerSubmitted);
     }
     catch (error)

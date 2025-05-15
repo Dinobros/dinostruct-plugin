@@ -136,6 +136,12 @@
             "description": "Log out the user."
           },
 
+          "refresh-user": {
+            "list-name": "Refresh user",
+            "display-text": "Refresh user",
+            "description": "Refresh the user data."
+          },
+
           "user-username-set": {
             "list-name": "Set username",
             "display-text": "Set username to [i]{0}[/i]",
@@ -367,6 +373,23 @@
             "list-name": "On user logout",
             "display-text": "On user logout",
             "description": "Triggered when the user logs out."
+          },
+
+          "user-refresh-trigger": {
+            "list-name": "On user refresh",
+            "display-text": "On user refresh",
+            "description": "Triggered when the user data is refreshed."
+          },
+
+          "user-username-set-trigger": {
+            "list-name": "On username set",
+            "display-text": "On username set",
+            "description": "Triggered when the username is set."
+          },
+          "user-email_address-set-trigger": {
+            "list-name": "On email address set",
+            "display-text": "On email address set",
+            "description": "Triggered when the email address is set."
           },
 
           "user-any-property-set-trigger": {

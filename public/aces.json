@@ -46,6 +46,12 @@
       },
 
       {
+        "id": "user-refresh",
+        "scriptName": "RefreshUser",
+        "isAsync": true
+      },
+
+      {
         "id": "user-username-set",
         "scriptName": "SetUsername",
         "params": [{
@@ -56,7 +62,7 @@
       },
       {
         "id": "user-email_address-set",
-        "scriptName": "SetEmail",
+        "scriptName": "SetEmailAddress",
         "params": [{
           "id": "email_address",
           "type": "string"
@@ -94,6 +100,23 @@
       {
         "id": "user-logout-trigger",
         "scriptName": "TriggerOnUserLogout",
+        "isTrigger": true
+      },
+
+      {
+        "id": "user-refresh-trigger",
+        "scriptName": "TriggerOnUserRefresh",
+        "isTrigger": true
+      },
+
+      {
+        "id": "user-username-set-trigger",
+        "scriptName": "TriggerOnUsernameSet",
+        "isTrigger": true
+      },
+      {
+        "id": "user-email_address-set-trigger",
+        "scriptName": "TriggerOnEmailAddressSet",
         "isTrigger": true
       },
 

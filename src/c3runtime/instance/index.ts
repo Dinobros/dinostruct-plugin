@@ -22,9 +22,12 @@ import type { FirestoreRawEvent, RawEvent } from "./types";
 
 export const LOG_EVENT_VERSION = 2;
 
+export const IP_ADDRESS_API = "https://api.ipify.org/";
+export const IP_ADDRESS_REGEX = /[0-9]{1,3}(?:\.[0-9]{1,3}){3}/;
+
 export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
 {
-    public static readonly Version = "0.3.1";
+    public static readonly Version = "0.4.0";
 
     protected _initialized: boolean;
 
@@ -290,11 +293,35 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
 
     protected async _logInitEvent(): Promise<void>
     {
-        const [ipAddress, browser] = await Promise.all([
-            fetch("https://api.ipify.org/").then((response) => response.text()),
-            this._postToDOMAsync("dinobros:dinostruct:runtime", { action: "browser:info" })
-        ]);
+        let ipAddress: string;
 
+        try
+        {
+            const response = await fetch(IP_ADDRESS_API);
+            if (!(response.ok))
+            {
+                const cause = `POST ${this.configs.eventLoggingEndpoint} ` +
+                    `${response.status} ${response.statusText}`;
+
+                // eslint-disable-next-line no-console
+                return console.error(new DinostructException(DinostructExceptionCode.RequestError, cause));
+            }
+
+            ipAddress = await response.text();
+        }
+        catch (error)
+        {
+            // eslint-disable-next-line no-console
+            return console.error(error);
+        }
+
+        if (!(IP_ADDRESS_REGEX.test(ipAddress)))
+        {
+            // eslint-disable-next-line no-console
+            return console.error(new DinostructException(DinostructExceptionCode.RequestError));
+        }
+
+        const browser = await this._postToDOMAsync("dinobros:dinostruct:runtime", { action: "browser:info" });
         const payload = {
             ...browser as JSONObject,
 

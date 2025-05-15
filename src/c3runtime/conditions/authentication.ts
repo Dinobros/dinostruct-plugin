@@ -3,9 +3,12 @@ import type Dinostruct from "../instance";
 export function IsUserLoggedIn(this: Dinostruct): boolean { return (this._user !== null); }
 
 export function TriggerOnUserLogin(this: Dinostruct): boolean { return true; }
-export function TriggerOnUserRefresh(this: Dinostruct): boolean { return true; }
 export function TriggerOnUserLogout(this: Dinostruct): boolean { return true; }
 
+export function TriggerOnUserRefresh(this: Dinostruct): boolean { return true; }
+
+export function TriggerOnUsernameSet(this: Dinostruct): boolean { return true; }
+export function TriggerOnEmailAddressSet(this: Dinostruct): boolean { return true; }
 export function TriggerOnUserPropertySet(this: Dinostruct, property?: string): boolean
 {
     if (property !== undefined) { return property === this.lastUserPropertySet; }
