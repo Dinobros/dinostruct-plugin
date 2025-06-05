@@ -136,7 +136,7 @@
             "description": "Log out the user."
           },
 
-          "refresh-user": {
+          "user-refresh": {
             "list-name": "Refresh user",
             "display-text": "Refresh user",
             "description": "Refresh the user data."
