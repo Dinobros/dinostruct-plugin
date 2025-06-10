@@ -14,6 +14,6 @@ export async function Initialize(this: Dinostruct): Promise<void>
     }
     catch (error)
     {
-        this.handleError(error);
+        this.handleError(error, "Initialize");
     }
 }

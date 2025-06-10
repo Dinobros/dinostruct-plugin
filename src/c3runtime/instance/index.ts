@@ -27,7 +27,7 @@ export const IP_ADDRESS_REGEX = /[0-9]{1,3}(?:\.[0-9]{1,3}){3}/;
 
 export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
 {
-    public static readonly Version = "0.4.0";
+    public static readonly Version = "0.5.0";
 
     protected _initialized: boolean;
 
@@ -91,24 +91,32 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
 
     protected _lastKeys: Map<string, unknown>;
 
+    public get lastErrorAction(): string | undefined
+    {
+        return this._lastKeys.get("error:action") as string | undefined;
+    }
     public get lastErrorCode(): DinostructExceptionCode
     {
         return this._lastKeys.get("error:code") as DinostructExceptionCode;
     }
+
     public get lastUserPropertySet(): string
     {
         return this._lastKeys.get("user:property:set") as string;
     }
 
-    public readonly handleError = (error: unknown) =>
+    public readonly handleError = (error: unknown, action?: string) =>
     {
         // eslint-disable-next-line no-console
         console.error(error);
 
         const code = (error instanceof DinostructException) ? error.code : DinostructExceptionCode.UnknownError;
+
+        this._lastKeys.set("error:action", action);
         this._lastKeys.set("error:code", code);
 
-        this._trigger(DinostructC3Conditions.TriggerOnError);
+        if (action) { this._trigger(DinostructC3Conditions.TriggerOnErrorAction); }
+        this._trigger(DinostructC3Conditions.TriggerOnErrorCode);
     };
 
     public readonly logEvent: (type: string, payload?: Payload, checkUser?: boolean) => Promise<void>;

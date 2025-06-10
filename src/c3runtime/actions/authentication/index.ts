@@ -30,7 +30,7 @@ export async function LogInAnonymously(this: Dinostruct): Promise<void>
     }
     catch (error)
     {
-        this.handleError(error);
+        this.handleError(error, "LogInAnonymously");
     }
 }
 export async function LogInWithCredentials(this: Dinostruct, emailAddress: string, password: string): Promise<void>
@@ -51,7 +51,7 @@ export async function LogInWithCredentials(this: Dinostruct, emailAddress: strin
     }
     catch (error)
     {
-        this.handleError(error);
+        this.handleError(error, "LogInWithCredentials");
     }
 }
 
@@ -83,7 +83,7 @@ export async function RegisterWithCredentials(this: Dinostruct, emailAddress: st
     }
     catch (error)
     {
-        this.handleError(error);
+        this.handleError(error, "RegisterWithCredentials");
     }
 }
 
@@ -103,7 +103,7 @@ export async function RefreshUser(this: Dinostruct): Promise<void>
     }
     catch (error)
     {
-        this.handleError(error);
+        this.handleError(error, "RefreshUser");
     }
 }
 
@@ -125,7 +125,7 @@ export async function SetUsername(this: Dinostruct, username: string): Promise<v
     }
     catch (error)
     {
-        this.handleError(error);
+        this.handleError(error, "SetUsername");
     }
 }
 export async function SetEmailAddress(this: Dinostruct, emailAddress: string): Promise<void>
@@ -146,7 +146,7 @@ export async function SetEmailAddress(this: Dinostruct, emailAddress: string): P
     }
     catch (error)
     {
-        this.handleError(error);
+        this.handleError(error, "SetEmailAddress");
     }
 }
 
@@ -175,7 +175,7 @@ export async function SetUserProperty(this: Dinostruct, property: string, value:
     }
     catch (error)
     {
-        this.handleError(error);
+        this.handleError(error, "SetUserProperty");
     }
 }
 
@@ -199,6 +199,6 @@ export async function LogOut(this: Dinostruct): Promise<void>
     }
     catch (error)
     {
-        this.handleError(error);
+        this.handleError(error, "LogOut");
     }
 }

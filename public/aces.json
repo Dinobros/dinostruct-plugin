@@ -184,17 +184,58 @@
   "error-handling": {
     "conditions": [
       {
-        "id": "error-any-trigger",
-        "scriptName": "TriggerOnError",
+        "id": "error-action-trigger",
+        "scriptName": "TriggerOnErrorAction",
+        "params": [{
+          "id": "action",
+          "type": "combo",
+          "items": [
+            "LogInAnonymously",
+            "LogInWithCredentials",
+            "RegisterWithCredentials",
+            "RefreshUser",
+            "SetUsername",
+            "SetEmailAddress",
+            "SetUserProperty",
+            "LogOut",
+            "LoadLeaderboard",
+            "SaveScore",
+            "Initialize",
+            "SubmitPollAnswer"
+          ]
+        }],
         "highlight": true,
         "isTrigger": true
       },
+
       {
-        "id": "error-specific-trigger",
-        "scriptName": "TriggerOnError",
+        "id": "error-code-any-trigger",
+        "scriptName": "TriggerOnErrorCode",
+        "isTrigger": true
+      },
+      {
+        "id": "error-code-specific-trigger",
+        "scriptName": "TriggerOnErrorCode",
         "params": [{
           "id": "code",
-          "type": "string"
+          "type": "combo",
+          "items": [
+            "UNKNOWN_ERROR",
+            "IMPLEMENTATION_ERROR",
+            "NOT_INITIALIZED",
+            "ALREADY_INITIALIZED",
+            "MISSING_CONFIGURATION",
+            "NETWORK_ERROR",
+            "REQUEST_ERROR",
+            "TIMEOUT_ERROR",
+            "NOT_AUTHENTICATED",
+            "NOT_AUTHORIZED",
+            "INVALID_CREDENTIALS",
+            "ALREADY_AUTHENTICATED",
+            "USER_NOT_FOUND",
+            "USER_ALREADY_EXISTS",
+            "LEADERBOARD_NOT_FOUND"
+          ]
         }],
         "isTrigger": true
       }
@@ -320,7 +361,8 @@
             "type": "string"
           }
         ],
-        "isAsync": true
+        "isAsync": true,
+        "isDeprecated": true
       },
 
       {

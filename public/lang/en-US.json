@@ -421,19 +421,62 @@
             "description": "A condition that's true if the user is anonymous."
           },
 
-          "error-any-trigger": {
+          "error-action-trigger": {
+            "list-name": "On action error",
+            "display-text": "On [i]{0}[/i] action error",
+            "description": "Triggered whenever an error occurs during a specific action being executed.",
+            "params": {
+              "action": {
+                "name": "Action",
+                "desc": "The specific action to listen for errors on.",
+                "items": {
+                  "LogInAnonymously": "Log in anonymously",
+                  "LogInWithCredentials": "Log in with credentials",
+                  "RegisterWithCredentials": "Register with credentials",
+                  "RefreshUser": "Refresh user",
+                  "SetUsername": "Set username",
+                  "SetEmailAddress": "Set email address",
+                  "SetUserProperty": "Set user property",
+                  "LogOut": "Log out",
+                  "LoadLeaderboard": "Load leaderboard",
+                  "SaveScore": "Save score",
+                  "Initialize": "Initialize",
+                  "SubmitPollAnswer": "Submit poll answer"
+                }
+              }
+            }
+          },
+
+          "error-code-any-trigger": {
             "list-name": "On any error",
             "display-text": "On any error",
             "description": "Triggered whenever an error occurs."
           },
-          "error-specific-trigger": {
+          "error-code-specific-trigger": {
             "list-name": "On specific error",
-            "display-text": "On error [i]{0}[/i]",
+            "display-text": "On [i]{0}[/i] error",
             "description": "Triggered whenever a specified error occurs.",
             "params": {
               "code": {
                 "name": "Error Code",
-                "desc": "The specific error code to trigger the event for."
+                "desc": "The specific error code to listen for.",
+                "items": {
+                  "UNKNOWN_ERROR": "UnknownError",
+                  "IMPLEMENTATION_ERROR": "ImplementationError",
+                  "NOT_INITIALIZED": "NotInitialized",
+                  "ALREADY_INITIALIZED": "AlreadyInitialized",
+                  "MISSING_CONFIGURATION": "MissingConfiguration",
+                  "NETWORK_ERROR": "NetworkError",
+                  "REQUEST_ERROR": "RequestError",
+                  "TIMEOUT_ERROR": "TimeoutError",
+                  "NOT_AUTHENTICATED": "NotAuthenticated",
+                  "NOT_AUTHORIZED": "NotAuthorized",
+                  "INVALID_CREDENTIALS": "InvalidCredentials",
+                  "ALREADY_AUTHENTICATED": "AlreadyAuthenticated",
+                  "USER_NOT_FOUND": "UserNotFound",
+                  "USER_ALREADY_EXISTS": "UserAlreadyExists",
+                  "LEADERBOARD_NOT_FOUND": "LeaderboardNotFound"
+                }
               }
             }
           },

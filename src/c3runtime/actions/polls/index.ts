@@ -44,6 +44,6 @@ export async function SubmitPollAnswer(
     }
     catch (error)
     {
-        this.handleError(error);
+        this.handleError(error, "SubmitPollAnswer");
     }
 }

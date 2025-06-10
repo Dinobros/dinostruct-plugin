@@ -69,7 +69,7 @@ export async function LoadLeaderboard(
     }
     catch (error)
     {
-        this.handleError(error);
+        this.handleError(error, "LoadLeaderboard");
     }
 }
 
@@ -104,6 +104,6 @@ export async function SaveScore(this: Dinostruct, score: number, payload?: IObje
     }
     catch (error)
     {
-        this.handleError(error);
+        this.handleError(error, "SaveScore");
     }
 }
