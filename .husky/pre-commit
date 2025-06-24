@@ -1,2 +1,2 @@
-NODE_ENV="production" pnpm run lint
-pnpm run typecheck
+NODE_ENV="production" bun run lint
+bun run typecheck
