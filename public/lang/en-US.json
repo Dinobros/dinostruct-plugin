@@ -88,6 +88,7 @@
         "aceCategories": {
           "authentication": "Authentication",
           "error-handling": "Error Handling",
+          "integration": "Integration & Communication",
           "leaderboard": "Leaderboard & Scores",
           "log-events": "Event Logging",
           "management": "Configuration & Management",
@@ -177,6 +178,26 @@
               "value": {
                 "name": "Value",
                 "desc": "The value to set the property to."
+              }
+            }
+          },
+
+          "send-message-to-parent": {
+            "list-name": "Send message to parent",
+            "display-text": "Send message with origin [i]{0}[/i] to parent with [i]{1}[/i] as paylaod to be empty: [i]{2}[/i]",
+            "description": "Send a message to the parent window.",
+            "params": {
+              "target": {
+                "name": "Target",
+                "desc": "The origin of the parent window to send the message to. Use `/` for same-origin policy, `*` to allow all origins or a specific origin like `https://www.dinobros.com`."
+              },
+              "payload": {
+                "name": "Payload",
+                "desc": "The payload JSON object to send with the message."
+              },
+              "empty": {
+                "name": "Empty",
+                "desc": "If true, the payload JSON object will be empty after sending."
               }
             }
           },
@@ -441,6 +462,7 @@
                   "LoadLeaderboard": "Load leaderboard",
                   "SaveScore": "Save score",
                   "Initialize": "Initialize",
+                  "SendMessageToParent": "Send message to parent",
                   "SubmitPollAnswer": "Submit poll answer"
                 }
               }
@@ -479,6 +501,39 @@
                 }
               }
             }
+          },
+
+          "message-from-parent-received-trigger": {
+            "list-name": "On parent message received",
+            "display-text": "On parent message loaded into [i]{0}[/i]",
+            "description": "Triggered when a message is received from the parent window.",
+            "params": {
+              "json_ref": {
+                "name": "JSON Reference",
+                "desc": "The JSON object to load the message into."
+              }
+            }
+          },
+          "typed-message-from-parent-received-trigger": {
+            "list-name": "On specific parent message received",
+            "display-text": "On [i]{0}[/i] parent message loaded into [i]{1}[/i]",
+            "description": "Triggered when a specific message is received from the parent window.",
+            "params": {
+              "type": {
+                "name": "Type",
+                "desc": "The type of message to listen for."
+              },
+              "json_ref": {
+                "name": "JSON Reference",
+                "desc": "The JSON object to load the message into."
+              }
+            }
+          },
+
+          "message-to-parent-sent-trigger": {
+            "list-name": "On message sent to parent",
+            "display-text": "On message sent to parent",
+            "description": "Triggered when a message is sent to the parent window."
           },
 
           "leaderboard-loaded-trigger": {

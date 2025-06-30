@@ -38,7 +38,7 @@ export async function SubmitPollAnswer(
         });
 
         // eslint-disable-next-line no-console
-        console.info("Poll answer submitted successfully. What a great choice! 🗳️");
+        console.debug("Poll answer submitted successfully. What a great choice! 🗳️");
 
         this._trigger(DinostructC3Conditions.TriggerOnPollAnswerSubmitted);
     }

@@ -73,14 +73,16 @@
       {
         "id": "user-property-set",
         "scriptName": "SetUserProperty",
-        "params": [{
-          "id": "property",
-          "type": "string"
-        },
-        {
-          "id": "value",
-          "type": "any"
-        }],
+        "params": [
+          {
+            "id": "property",
+            "type": "string"
+          },
+          {
+            "id": "value",
+            "type": "any"
+          }
+        ],
         "isAsync": true
       }
     ],
@@ -201,6 +203,7 @@
             "LoadLeaderboard",
             "SaveScore",
             "Initialize",
+            "SendMessageToParent",
             "SubmitPollAnswer"
           ]
         }],
@@ -333,18 +336,76 @@
       }
     ]
   },
-  "leaderboard": {
-    "actions": [
+  "integration": {
+    "actions": [{
+      "id": "send-message-to-parent",
+      "scriptName": "SendMessageToParent",
+      "params": [
+        {
+          "id": "target",
+          "type": "string",
+          "initialValue": "/"
+        },
+        {
+          "id": "payload",
+          "type": "object",
+          "allowedPluginIds": ["Json"]
+        },
+        {
+          "id": "empty",
+          "type": "boolean",
+          "defaultValue": false
+        }
+      ],
+      "highlight": true,
+      "isAsync": true
+    }],
+    "conditions": [
       {
-        "id": "load-leaderboard",
-        "scriptName": "LoadLeaderboard",
+        "id": "message-from-parent-received-trigger",
+        "scriptName": "TriggerOnMessageFromParentReceived",
+        "params": [{
+          "id": "json_ref",
+          "type": "object",
+          "allowedPluginIds": ["Json"]
+        }],
+        "highlight": true,
+        "isTrigger": true
+      },
+      {
+        "id": "typed-message-from-parent-received-trigger",
+        "scriptName": "TriggerOnMessageFromParentReceived",
         "params": [
           {
             "id": "json_ref",
             "type": "object",
             "allowedPluginIds": ["Json"]
+          },
+          {
+            "id": "type",
+            "type": "string"
           }
         ],
+        "isTrigger": true
+      },
+
+      {
+        "id": "message-to-parent-sent-trigger",
+        "scriptName": "TriggerOnMessageToParentSent",
+        "isTrigger": true
+      }
+    ]
+  },
+  "leaderboard": {
+    "actions": [
+      {
+        "id": "load-leaderboard",
+        "scriptName": "LoadLeaderboard",
+        "params": [{
+          "id": "json_ref",
+          "type": "object",
+          "allowedPluginIds": ["Json"]
+        }],
         "isAsync": true
       },
       {
@@ -368,12 +429,10 @@
       {
         "id": "save-score",
         "scriptName": "SaveScore",
-        "params": [
-          {
-            "id": "score",
-            "type": "number"
-          }
-        ],
+        "params": [{
+          "id": "score",
+          "type": "number"
+        }],
         "highlight": true,
         "isAsync": true
       },

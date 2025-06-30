@@ -6,3 +6,10 @@ export interface DateTimeFormatOptions
     dateStyle?: DateTimeFormatStyle;
     timeStyle?: DateTimeFormatStyle;
 }
+
+export interface Message<T extends Payload = Payload>
+{
+    action: string;
+    data: T;
+    targetOrigin?: string;
+}

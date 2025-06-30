@@ -14,7 +14,7 @@ import { v4 as uuid4 } from "uuid";
 import { DinostructException, DinostructExceptionCode } from "@/exceptions";
 
 import Configs from "@/core/configs";
-import type { Payload } from "@/core/types";
+import type { Message, Payload } from "@/core/types";
 
 import type { UserRecord } from "../actions/authentication/types";
 import DinostructC3Conditions from "../conditions";
@@ -48,6 +48,17 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
 
             switch (message.action)
             {
+                case "window:message:receive":
+                {
+                    const _message = message as Message;
+
+                    this._lastKeys.set("window:message", _message.data);
+                    this._trigger(DinostructC3Conditions.TriggerOnMessageFromParentReceived);
+
+                    // eslint-disable-next-line no-console
+                    return console.debug("New message received from the window. Who's there? 📬");
+                }
+
                 default:
                     throw new DinostructException(DinostructExceptionCode.ImplementationError);
             }
@@ -98,6 +109,11 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
     public get lastErrorCode(): DinostructExceptionCode
     {
         return this._lastKeys.get("error:code") as DinostructExceptionCode;
+    }
+
+    public get lastMessageReceived(): unknown
+    {
+        return this._lastKeys.get("window:message") as unknown;
     }
 
     public get lastUserPropertySet(): string
