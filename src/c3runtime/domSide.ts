@@ -8,9 +8,12 @@ class DomHandler extends DOMHandler
 {
     protected _onPostMessage = async (event: MessageEvent): Promise<void> =>
     {
+        const { data } = event;
+        if (!(data.dinobros)) { return; }
+
         const result = await this.PostToRuntimeAsync("dinobros:dinostruct:dom", {
             action: "window:message:receive",
-            data: event.data
+            data: data
         });
 
         if (result !== true)

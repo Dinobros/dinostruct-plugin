@@ -27,7 +27,7 @@ export const IP_ADDRESS_REGEX = /[0-9]{1,3}(?:\.[0-9]{1,3}){3}/;
 
 export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
 {
-    public static readonly Version = "0.5.0";
+    public static readonly Version = "0.5.1";
 
     protected _initialized: boolean;
 
