@@ -20,3 +20,5 @@ export function formatTimestamp(timestamp: { toDate?: () => Date, _seconds?: num
 
     return formatDatetime();
 }
+
+export const NoOp = () => { /* ... */ };

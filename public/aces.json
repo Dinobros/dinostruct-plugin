@@ -456,6 +456,141 @@
           }
         ],
         "isAsync": true
+      },
+
+      {
+        "id": "save-score-load-leaderboard",
+        "scriptName": "SaveScoreLoadLeaderboard",
+        "params": [
+          {
+            "id": "score",
+            "type": "number"
+          },
+          {
+            "id": "json_ref",
+            "type": "object",
+            "allowedPluginIds": ["Json"]
+          }
+        ],
+        "isAsync": true
+      },
+      {
+        "id": "save-score-payload-load-leaderboard",
+        "scriptName": "SaveScoreLoadLeaderboard",
+        "params": [
+          {
+            "id": "score",
+            "type": "number"
+          },
+          {
+            "id": "json_ref",
+            "type": "object",
+            "allowedPluginIds": ["Json"]
+          },
+          {
+            "id": "payload",
+            "type": "object",
+            "allowedPluginIds": ["Json"]
+          },
+          {
+            "id": "empty",
+            "type": "boolean",
+            "defaultValue": false
+          }
+        ],
+        "isAsync": true
+      },
+
+      {
+        "id": "save-level-score",
+        "scriptName": "SaveLevelScore",
+        "params": [
+          {
+            "id": "level",
+            "type": "string"
+          },
+          {
+            "id": "score",
+            "type": "number"
+          }
+        ],
+        "isAsync": true
+      },
+      {
+        "id": "save-level-score-payload",
+        "scriptName": "SaveLevelScore",
+        "params": [
+          {
+            "id": "level",
+            "type": "string"
+          },
+          {
+            "id": "score",
+            "type": "number"
+          },
+          {
+            "id": "payload",
+            "type": "object",
+            "allowedPluginIds": ["Json"]
+          },
+          {
+            "id": "empty",
+            "type": "boolean",
+            "defaultValue": false
+          }
+        ],
+        "isAsync": true
+      },
+
+      {
+        "id": "save-level-score-load-leaderboard",
+        "scriptName": "SaveLevelScoreLoadLeaderboard",
+        "params": [
+          {
+            "id": "level",
+            "type": "string"
+          },
+          {
+            "id": "score",
+            "type": "number"
+          },
+          {
+            "id": "json_ref",
+            "type": "object",
+            "allowedPluginIds": ["Json"]
+          }
+        ],
+        "isAsync": true
+      },
+      {
+        "id": "save-level-score-payload-load-leaderboard",
+        "scriptName": "SaveLevelScoreLoadLeaderboard",
+        "params": [
+          {
+            "id": "level",
+            "type": "string"
+          },
+          {
+            "id": "score",
+            "type": "number"
+          },
+          {
+            "id": "json_ref",
+            "type": "object",
+            "allowedPluginIds": ["Json"]
+          },
+          {
+            "id": "payload",
+            "type": "object",
+            "allowedPluginIds": ["Json"]
+          },
+          {
+            "id": "empty",
+            "type": "boolean",
+            "defaultValue": false
+          }
+        ],
+        "isAsync": true
       }
     ],
     "conditions": [

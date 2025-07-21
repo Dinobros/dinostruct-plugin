@@ -21,7 +21,7 @@ export async function LogInAnonymously(this: Dinostruct): Promise<void>
         this._user = user;
 
         const account = { provider: "anonymous", username: this.username } satisfies AccountPayload;
-        await createUserRecord(this.firestore, user.uid, account, true);
+        await createUserRecord(this, account, true);
 
         // eslint-disable-next-line no-console
         console.info(`Logged in as a new anonymous user. Sssh! 🤫`);
@@ -74,7 +74,7 @@ export async function RegisterWithCredentials(this: Dinostruct, emailAddress: st
 
         } satisfies AccountPayload;
 
-        await createUserRecord(this.firestore, user.uid, account, true);
+        await createUserRecord(this, account, true);
 
         // eslint-disable-next-line no-console
         console.info(`Registered with email and password. Nice to meet you! 🤝`);

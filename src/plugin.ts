@@ -16,7 +16,7 @@ export default class DinostructSDK extends SDK.IPluginBase
 {
     public static readonly ID = "Dinobros_DinostructPlugin";
     public static readonly Author = "Dinobros Srl";
-    public static readonly Version = "0.5.1";
+    public static readonly Version = "0.5.3";
     public static readonly Category = "general";
 
     public constructor()

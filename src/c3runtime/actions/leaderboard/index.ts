@@ -6,18 +6,17 @@ import { DinostructException, DinostructExceptionCode } from "@/exceptions";
 import { formatTimestamp } from "@/core/utils";
 
 import type Dinostruct from "../../instance";
-import { saveScore } from "./core";
+import { DEFAULT_LEVEL, onLeaderboardUpdate, saveScore } from "./core";
 import type { BestScore, JsonLeaderboard, Leaderboard } from "./types";
 
-export async function LoadLeaderboard(
-    this: Dinostruct, jsonRef: IObjectClass<IJSONInstance>, level: string | null = null
-): Promise<void>
+async function __LoadLeaderboard__(this: Dinostruct, jsonRef: IObjectClass<IJSONInstance>, level = DEFAULT_LEVEL)
+    : Promise<void>
 {
     try
     {
         if (!(this._user)) { throw new DinostructException(DinostructExceptionCode.NotAuthenticated); }
 
-        const leaderboardRef = doc(this.firestore, "leaderboards", level ?? "global") as
+        const leaderboardRef = doc(this.firestore, "leaderboards", level) as
             DocumentReference<Leaderboard, Leaderboard>;
 
         const leaderboardDoc = await getDoc(leaderboardRef);
@@ -73,8 +72,20 @@ export async function LoadLeaderboard(
     }
 }
 
-export async function SaveScore(this: Dinostruct, score: number, payload?: IObjectClass<IJSONInstance>, empty = false)
+export function LoadLeaderboard(this: Dinostruct, jsonRef: IObjectClass<IJSONInstance>, level = DEFAULT_LEVEL)
     : Promise<void>
+{
+    return __LoadLeaderboard__.call(this, jsonRef, level);
+}
+
+async function __SaveScore__(
+    this: Dinostruct,
+    level: string,
+    score: number,
+    payload?: IObjectClass<IJSONInstance>,
+    empty = false
+
+): Promise<void>
 {
     try
     {
@@ -90,10 +101,11 @@ export async function SaveScore(this: Dinostruct, score: number, payload?: IObje
         }
         else { _payload = { }; }
 
-        await saveScore(this.firestore, this._user.uid, {
+        await saveScore(this, {
             ..._payload,
 
             username: this.username,
+            level: level,
             value: score
         });
 
@@ -106,4 +118,64 @@ export async function SaveScore(this: Dinostruct, score: number, payload?: IObje
     {
         this.handleError(error, "SaveScore");
     }
+}
+
+export function SaveScore(this: Dinostruct, score: number, payload?: IObjectClass<IJSONInstance>, empty = false)
+    : Promise<void>
+{
+    return __SaveScore__.call(this, DEFAULT_LEVEL, score, payload, empty);
+}
+export function SaveLevelScore(
+    this: Dinostruct, level: string, score: number, payload?: IObjectClass<IJSONInstance>, empty = false
+): Promise<void>
+{
+    return __SaveScore__.call(this, level, score, payload, empty);
+}
+
+export async function SaveScoreAndLoadLeaderboard(
+    this: Dinostruct,
+    score: number,
+    jsonRef: IObjectClass<IJSONInstance>,
+    payload?: IObjectClass<IJSONInstance>,
+    empty = false
+
+): Promise<void>
+{
+    await __SaveScore__.call(this, DEFAULT_LEVEL, score, payload, empty);
+
+    try
+    {
+        await onLeaderboardUpdate(this, DEFAULT_LEVEL);
+    }
+    catch (error)
+    {
+        // eslint-disable-next-line no-console
+        console.warn(error);
+    }
+
+    await __LoadLeaderboard__.call(this, jsonRef, DEFAULT_LEVEL);
+}
+export async function SaveLevelScoreAndLoadLeaderboard(
+    this: Dinostruct,
+    level: string,
+    score: number,
+    jsonRef: IObjectClass<IJSONInstance>,
+    payload?: IObjectClass<IJSONInstance>,
+    empty = false
+
+): Promise<void>
+{
+    await __SaveScore__.call(this, level, score, payload, empty);
+
+    try
+    {
+        await onLeaderboardUpdate(this, level);
+    }
+    catch (error)
+    {
+        // eslint-disable-next-line no-console
+        console.warn(error);
+    }
+
+    await __LoadLeaderboard__.call(this, jsonRef, level);
 }

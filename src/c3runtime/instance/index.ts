@@ -1,4 +1,5 @@
 import { hash as computeHash, TimedPromise, TimeoutException } from "@byloth/core";
+import type { Callback } from "@byloth/core";
 
 import { initializeApp } from "firebase/app";
 import type { FirebaseApp } from "firebase/app";
@@ -15,6 +16,7 @@ import { DinostructException, DinostructExceptionCode } from "@/exceptions";
 
 import Configs from "@/core/configs";
 import type { Message, Payload } from "@/core/types";
+import { NoOp } from "@/core/utils";
 
 import type { UserRecord } from "../actions/authentication/types";
 import DinostructC3Conditions from "../conditions";
@@ -27,7 +29,7 @@ export const IP_ADDRESS_REGEX = /[0-9]{1,3}(?:\.[0-9]{1,3}){3}/;
 
 export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
 {
-    public static readonly Version = "0.5.1";
+    public static readonly Version = "0.5.3";
 
     protected _initialized: boolean;
 
@@ -80,7 +82,8 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
     protected _emailAddress: string | null;
     protected _userProperties: Record<string, number | string>;
 
-    protected get username(): string
+    public get user(): User | null { return this._user; }
+    public get username(): string
     {
         if (this._username) { return this._username; }
 
@@ -89,15 +92,16 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
 
         if (this._user)
         {
-            hash = `${Math.abs(computeHash(this._user.uid))}`.substring(0, 5);
+            hash = `${Math.abs(computeHash(this._user.uid))}`;
             name = "User";
         }
+        else
         {
             hash = `${Math.abs(computeHash(this._deviceId))}`;
             name = "Guest";
         }
 
-        return `${name} #${hash}`;
+        return `${name} #${hash.substring(0, 5)}`;
     }
 
     protected _lastKeys: Map<string, unknown>;
@@ -156,7 +160,7 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
 
         this._lastKeys = new Map();
 
-        this.logEvent = async () => { /* ... */ };
+        this.logEvent = NoOp as Callback<[], Promise<void>>;
 
         this.configs = new Configs(this._getInitProperties());
         if (this.configs.autoInitialize)

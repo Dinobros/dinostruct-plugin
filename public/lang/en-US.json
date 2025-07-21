@@ -184,7 +184,7 @@
 
           "send-message-to-parent": {
             "list-name": "Send message to parent",
-            "display-text": "Send message with origin [i]{0}[/i] to parent with [i]{1}[/i] as paylaod to be empty: [i]{2}[/i]",
+            "display-text": "Send message with origin [i]{0}[/i] to parent with [i]{1}[/i] as paylaod to be empty ([i]{2}[/i])",
             "description": "Send a message to the parent window.",
             "params": {
               "target": {
@@ -241,12 +241,134 @@
           },
           "save-score-payload": {
             "list-name": "Save score with payload",
-            "display-text": "Save score with value [i]{0}[/i] and [i]{1}[/i] as payload to be empty: [i]{2}[/i]",
+            "display-text": "Save score with value [i]{0}[/i] and [i]{1}[/i] as payload to be empty ([i]{2}[/i])",
             "description": "Save a score to the leaderboard with a payload.",
             "params": {
               "score": {
                 "name": "Score",
                 "desc": "The score value to save."
+              },
+              "payload": {
+                "name": "Payload",
+                "desc": "The payload JSON object to store with the score."
+              },
+              "empty": {
+                "name": "Empty",
+                "desc": "If true, the payload JSON object will be empty after saving."
+              }
+            }
+          },
+          "save-score-load-leaderboard": {
+            "list-name": "Save score and load leaderboard",
+            "display-text": "Save score with value [i]{0}[/i] and load leaderboard on [i]{1}[/i]",
+            "description": "Save a score to the leaderboard and load the leaderboard to a given JSON object.",
+            "params": {
+              "score": {
+                "name": "Score",
+                "desc": "The score value to save."
+              },
+              "json_ref": {
+                "name": "JSON Reference",
+                "desc": "The JSON object to load the leaderboard into."
+              }
+            }
+          },
+          "save-score-payload-load-leaderboard": {
+            "list-name": "Save score with payload and load leaderboard",
+            "display-text": "Save score with value [i]{0}[/i] and [i]{1}[/i] as payload to be empty ([i]{2}[/i]) and load leaderboard on [i]{3}[/i]",
+            "description": "Save a score to the leaderboard with a payload and load the leaderboard to a given JSON object.",
+            "params": {
+              "score": {
+                "name": "Score",
+                "desc": "The score value to save."
+              },
+              "json_ref": {
+                "name": "JSON Reference",
+                "desc": "The JSON object to load the leaderboard into."
+              },
+              "payload": {
+                "name": "Payload",
+                "desc": "The payload JSON object to store with the score."
+              },
+              "empty": {
+                "name": "Empty",
+                "desc": "If true, the payload JSON object will be empty after saving."
+              }
+            }
+          },
+          "save-level-score": {
+            "list-name": "Save score for level",
+            "display-text": "Save score for level [i]{0}[/i] with value [i]{1}[/i]",
+            "description": "Save a score to the leaderboard for a specific level.",
+            "params": {
+              "level": {
+                "name": "Level",
+                "desc": "The level to save the score for."
+              },
+              "score": {
+                "name": "Score",
+                "desc": "The score value to save."
+              }
+            }
+          },
+          "save-level-score-payload": {
+            "list-name": "Save score for level with payload",
+            "display-text": "Save score for level [i]{0}[/i] with value [i]{1}[/i] and [i]{2}[/i] as payload to be empty ([i]{3}[/i])",
+            "description": "Save a score to the leaderboard for a specific level with a payload.",
+            "params": {
+              "level": {
+                "name": "Level",
+                "desc": "The level to save the score for."
+              },
+              "score": {
+                "name": "Score",
+                "desc": "The score value to save."
+              },
+              "payload": {
+                "name": "Payload",
+                "desc": "The payload JSON object to store with the score."
+              },
+              "empty": {
+                "name": "Empty",
+                "desc": "If true, the payload JSON object will be empty after saving."
+              }
+            }
+          },
+          "save-level-score-load-leaderboard": {
+            "list-name": "Save score for level and load leaderboard",
+            "display-text": "Save score for level [i]{0}[/i] with value [i]{1}[/i] and load leaderboard on [i]{2}[/i]",
+            "description": "Save a score to the leaderboard for a specific level and load the leaderboard to a given JSON object.",
+            "params": {
+              "level": {
+                "name": "Level",
+                "desc": "The level to save the score for."
+              },
+              "score": {
+                "name": "Score",
+                "desc": "The score value to save."
+              },
+              "json_ref": {
+                "name": "JSON Reference",
+                "desc": "The JSON object to load the leaderboard into."
+              }
+            }
+          },
+          "save-level-score-payload-load-leaderboard": {
+            "list-name": "Save score for level with payload and load leaderboard",
+            "display-text": "Save score for level [i]{0}[/i] with value [i]{1}[/i] and [i]{2}[/i] as payload to be empty ([i]{3}[/i]) and load leaderboard on [i]{4}[/i]",
+            "description": "Save a score to the leaderboard for a specific level with a payload and load the leaderboard to a given JSON object.",
+            "params": {
+              "level": {
+                "name": "Level",
+                "desc": "The level to save the score for."
+              },
+              "score": {
+                "name": "Score",
+                "desc": "The score value to save."
+              },
+              "json_ref": {
+                "name": "JSON Reference",
+                "desc": "The JSON object to load the leaderboard into."
               },
               "payload": {
                 "name": "Payload",
@@ -272,7 +394,7 @@
           },
           "log-event-payload": {
             "list-name": "Log event with payload",
-            "display-text": "Log a [i]{0}[/i] event with [i]{1}[/i] as payload to be empty: [i]{2}[/i]",
+            "display-text": "Log a [i]{0}[/i] event with [i]{1}[/i] as payload to be empty ([i]{2}[/i])",
             "description": "Log a event to the database.",
             "params": {
               "type": {
@@ -297,7 +419,7 @@
           },
           "log-game_start-event-payload": {
             "list-name": "Log game start event with payload",
-            "display-text": "Log a game start event with [i]{0}[/i] as payload to be empty: [i]{1}[/i]",
+            "display-text": "Log a game start event with [i]{0}[/i] as payload to be empty ([i]{1}[/i])",
             "description": "Log a game start event to the database.",
             "params": {
               "payload": {
@@ -318,7 +440,7 @@
           },
           "log-game_finish-event-payload": {
             "list-name": "Log game finish event with payload",
-            "display-text": "Log a game finish event with [i]{0}[/i] as payload to be empty: [i]{1}[/i]",
+            "display-text": "Log a game finish event with [i]{0}[/i] as payload to be empty ([i]{1}[/i])",
             "description": "Log a game finish event to the database.",
             "params": {
               "payload": {
