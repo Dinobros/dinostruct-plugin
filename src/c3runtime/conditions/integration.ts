@@ -5,7 +5,6 @@ export function TriggerOnMessageFromParentReceived(
     this: Dinostruct, jsonRef: IObjectClass<IJSONInstance>, type?: string
 ): boolean
 {
-
     if (type !== undefined)
     {
         const message = this.lastMessageReceived;

@@ -1,7 +1,7 @@
 import { DinostructException } from "@/exceptions";
 
 import DinostructC3Conditions from "../conditions";
-import Dinostruct from "../instance";
+import type Dinostruct from "../instance";
 
 export async function SendMessageToParent(
     this: Dinostruct, target: string, payload: IObjectClass<IJSONInstance>, empty = false

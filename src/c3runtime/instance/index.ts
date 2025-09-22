@@ -173,7 +173,7 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
 
                     // eslint-disable-next-line no-console
                     console.info(`Dinostruct (v${DinostructC3Instance.Version})` +
-                        ` automatically initialized successfully. RAAAWR! 🦖`);
+                      " automatically initialized successfully. RAAAWR! 🦖");
 
                     this._trigger(DinostructC3Conditions.TriggerOnInitialized);
                 }
@@ -221,7 +221,7 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
                         await this.refreshUser(user);
 
                         // eslint-disable-next-line no-console
-                        console.info(`Logged in as an existing anonymous user. Sssh! 🤫`);
+                        console.info("Logged in as an existing anonymous user. Sssh! 🤫");
                     }
 
                     resolve();
@@ -229,7 +229,6 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
                 catch (error) { reject(error); }
                 finally { unsubscribe(); }
             });
-
         }, this.configs.timeout);
     }
 
@@ -266,7 +265,7 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
                     if (!(response.ok))
                     {
                         const cause = `POST ${this.configs.eventLoggingEndpoint} ` +
-                            `${response.status} ${response.statusText}`;
+                          `${response.status} ${response.statusText}`;
 
                         // eslint-disable-next-line no-console
                         return console.error(new DinostructException(DinostructExceptionCode.RequestError, cause));
@@ -329,7 +328,7 @@ export default class DinostructC3Instance extends globalThis.ISDKInstanceBase
             if (!(response.ok))
             {
                 const cause = `POST ${this.configs.eventLoggingEndpoint} ` +
-                    `${response.status} ${response.statusText}`;
+                  `${response.status} ${response.statusText}`;
 
                 // eslint-disable-next-line no-console
                 return console.error(new DinostructException(DinostructExceptionCode.RequestError, cause));

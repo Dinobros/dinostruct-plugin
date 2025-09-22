@@ -1,5 +1,5 @@
 import { doc, getDoc } from "firebase/firestore";
-import { DocumentReference } from "firebase/firestore";
+import type { DocumentReference } from "firebase/firestore";
 
 import DinostructC3Conditions from "@/c3runtime/conditions";
 import { DinostructException, DinostructExceptionCode } from "@/exceptions";
@@ -9,8 +9,9 @@ import type Dinostruct from "../../instance";
 import { DEFAULT_LEVEL, onLeaderboardUpdate, saveScore } from "./core";
 import type { BestScore, JsonLeaderboard, Leaderboard } from "./types";
 
-async function __LoadLeaderboard__(this: Dinostruct, jsonRef: IObjectClass<IJSONInstance>, level = DEFAULT_LEVEL)
-    : Promise<void>
+async function __LoadLeaderboard__(
+    this: Dinostruct, jsonRef: IObjectClass<IJSONInstance>, level = DEFAULT_LEVEL
+): Promise<void>
 {
     try
     {
@@ -72,8 +73,9 @@ async function __LoadLeaderboard__(this: Dinostruct, jsonRef: IObjectClass<IJSON
     }
 }
 
-export function LoadLeaderboard(this: Dinostruct, jsonRef: IObjectClass<IJSONInstance>, level = DEFAULT_LEVEL)
-    : Promise<void>
+export function LoadLeaderboard(
+    this: Dinostruct, jsonRef: IObjectClass<IJSONInstance>, level = DEFAULT_LEVEL
+): Promise<void>
 {
     return __LoadLeaderboard__.call(this, jsonRef, level);
 }
@@ -120,8 +122,9 @@ async function __SaveScore__(
     }
 }
 
-export function SaveScore(this: Dinostruct, score: number, payload?: IObjectClass<IJSONInstance>, empty = false)
-    : Promise<void>
+export function SaveScore(
+    this: Dinostruct, score: number, payload?: IObjectClass<IJSONInstance>, empty = false
+): Promise<void>
 {
     return __SaveScore__.call(this, DEFAULT_LEVEL, score, payload, empty);
 }

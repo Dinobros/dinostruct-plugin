@@ -4,7 +4,7 @@ import type { CollectionReference } from "firebase/firestore";
 import { DinostructException, DinostructExceptionCode } from "@/exceptions";
 
 import DinostructC3Conditions from "../../conditions";
-import Dinostruct from "../../instance";
+import type Dinostruct from "../../instance";
 
 import { POLL_ANSWERS_VERSION } from "./core";
 import type { PollAnswer } from "./types";

@@ -24,7 +24,7 @@ export async function LogInAnonymously(this: Dinostruct): Promise<void>
         await createUserRecord(this, account, true);
 
         // eslint-disable-next-line no-console
-        console.info(`Logged in as a new anonymous user. Sssh! 🤫`);
+        console.info("Logged in as a new anonymous user. Sssh! 🤫");
 
         this._trigger(DinostructC3Conditions.TriggerOnUserLogin);
     }
@@ -44,7 +44,7 @@ export async function LogInWithCredentials(this: Dinostruct, emailAddress: strin
         await this.refreshUser(user);
 
         // eslint-disable-next-line no-console
-        console.info(`Logged in with email and password. Welcome back! 🥳`);
+        console.info("Logged in with email and password. Welcome back! 🥳");
 
         this.logEvent("user:login", { provider: "emailAddress" });
         this._trigger(DinostructC3Conditions.TriggerOnUserLogin);
@@ -77,7 +77,7 @@ export async function RegisterWithCredentials(this: Dinostruct, emailAddress: st
         await createUserRecord(this, account, true);
 
         // eslint-disable-next-line no-console
-        console.info(`Registered with email and password. Nice to meet you! 🤝`);
+        console.info("Registered with email and password. Nice to meet you! 🤝");
 
         this._trigger(DinostructC3Conditions.TriggerOnUserLogin);
     }
@@ -97,7 +97,7 @@ export async function RefreshUser(this: Dinostruct): Promise<void>
         await this.refreshUser(user);
 
         // eslint-disable-next-line no-console
-        console.debug(`User data has been refreshed. Sooo fresh! 🍃`);
+        console.debug("User data has been refreshed. Sooo fresh! 🍃");
 
         this._trigger(DinostructC3Conditions.TriggerOnUserRefresh);
     }

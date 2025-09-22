@@ -23,7 +23,6 @@ export async function onUpdate<T, D extends DocumentData = T extends DocumentDat
 
                 isInitialSnapshot = false;
             });
-
         }, timeout);
     }
     finally

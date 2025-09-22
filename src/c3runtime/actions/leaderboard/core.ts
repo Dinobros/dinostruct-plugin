@@ -11,8 +11,9 @@ export const DEFAULT_LEVEL = "global";
 export const RAW_SCORES_VERSION = 2;
 export const LEADERBOARD_VERSION = 2;
 
-export async function onLeaderboardUpdate({ firestore, user, configs }: Dinostruct, level = DEFAULT_LEVEL)
-    : Promise<void>
+export async function onLeaderboardUpdate(
+    { firestore, user, configs }: Dinostruct, level = DEFAULT_LEVEL
+): Promise<void>
 {
     const leaderboardRef = doc(firestore, "leaderboards", level) as DocumentReference<Leaderboard>;
     const bestScoreRef = doc(leaderboardRef, "bestScores", user!.uid) as DocumentReference<BestScore>;

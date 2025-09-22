@@ -9,8 +9,9 @@ import type { AccountPayload, UserRecord } from "./types";
 export const USERS_VERSION = 2;
 export const USER_PROPERTIES_VERSION = 1;
 
-export async function createUserRecord({ firestore, user }: Dinostruct, payload: AccountPayload, throwIfExists = true)
-    : Promise<void>
+export async function createUserRecord(
+    { firestore, user }: Dinostruct, payload: AccountPayload, throwIfExists = true
+): Promise<void>
 {
     const userRef = doc(firestore, "users", user!.uid) as DocumentReference<UserRecord, UserRecord>;
     const userDoc = await getDoc(userRef);

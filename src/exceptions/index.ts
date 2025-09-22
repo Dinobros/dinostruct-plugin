@@ -23,7 +23,7 @@ export enum DinostructExceptionCode
     UserNotFound = "USER_NOT_FOUND",
     UserAlreadyExists = "USER_ALREADY_EXISTS",
 
-    LeaderboardNotFound = "LEADERBOARD_NOT_FOUND",
+    LeaderboardNotFound = "LEADERBOARD_NOT_FOUND"
 }
 
 export class DinostructException extends RuntimeException
